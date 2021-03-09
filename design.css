@@ -64,9 +64,9 @@ h2, h3 {
 }
 
 .resume {
-  float:left, 75%;
+  float:left;
+  width: 70%;
   margin-left:10px;
-  margin-right:25%;
   border-style: solid;
   border-radius: 10px;
   border-width: 5px;
@@ -75,6 +75,14 @@ h2, h3 {
   background-color: #4a4a4a;
   color: #ffffff;
   margin-bottom: 10px;
+}
+
+.links {
+  float: right;
+  width: 20%;
+  margin-right: 5px;
+  padding-right: 10px;
+  text-align: center;
 }
 
 embed {

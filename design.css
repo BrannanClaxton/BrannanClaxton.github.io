@@ -9,7 +9,7 @@
   border-width: 5px;
   border-color:#0e4a13;
   margin-top: 10px;
-  margin-bottom: 0px;
+  margin-bottom: 50px;
 }
 body {
   background-image: linear-gradient(90deg, rgba(194, 255, 242, .75), rgba(186, 104, 237, .25));
@@ -25,12 +25,13 @@ body {
   margin-right: 20px;
   background-color:white;
   padding: 10px;
-  margin-top: 10px;
   border-style: solid;
   border-radius: 10px;
   border-width: 5px;
   border-color: #5e154b;
   text-align:center;
+  margin-bottom:50px;
+  padding-top: 0px;
 }
 
 .profile {
@@ -43,13 +44,39 @@ body {
 h1 {
   font-family: Candara;
   font-size: 50px;
+  margin-bottom: 0px;
 }
 
 hr {
-  height: 5px;
+  height: 10px;
   color: #0e4a13;
-  background-color: #ffc2ef;
+  background-color: #ffffff;
   border-width: 5px;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-bottom: 50px;
+}
+
+h2, h3 {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  font-family: fantasy;
+}
+
+.resume {
+  float:left, 75%;
+  margin-left:10px;
+  margin-right:25%;
+  border-style: solid;
+  border-radius: 10px;
+  border-width: 5px;
+  border-color: #5e154b;
+  padding: 20px;
+  background-color: #4a4a4a;
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+
+embed {
+  margin-top: 5px;
 }

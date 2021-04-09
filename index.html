@@ -1,29 +1,240 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Brannan Claxton's Page</title>
+    <div class = "head">
+      <link rel="stylesheet" href = "design.css">
+      <title>Website Creation Documentation</title>
+      <h1 class = "top">Documentation for Creating and Hosting a Website on GitHub</h1>
+      <h2 class = "top">For Free!</h2>
+      <h2 class = "top">By Brannan Claxton</h2>
+    </div>
   </head>
   <body>
-    <link rel="stylesheet" href = "design.css">
-    <img class="top" src="images/AngkorWat.jpg" alt= "Angkor Wat"></img>
-    <div class = "left">
-      <img class= "profile" src= "images/profile_circle.png" alt= "Me!"></img>
-    </div>
-    <div class= "right">
-      <h1>Welcome to my page</h1>
-      <h2>My name is <strong>Brannan Claxton</strong></h2>
-      <h3>It's nice to meet you!</h3>
-    </div>
+    <div class = "body">
+    <h1>Background</h1>
+    <p>
+      As the internet continues to grow in popularity, it's important for everyone to have their own webpage!  It can have many functions, such as a
+      personal page with links to your favorite websites, a blog for keeping family members up-to-date with your life, an advertising page for your
+      product or service, or more!  There are tons of options for website design and hosting, but my personal preference is hosting with GitHub.
+    </p>
+    <p>
+      This guide is specifically for people who know how to create a webpage, but don't know how or where to put it on the internet for everyone to access.
+      If you don't know how to begin writing code to create a webpage in HTML, you might want to practice building webpages on your local device before
+      attempting to upload it for the world to see.
+    </p>
+    <p>
+      Information about getting started in HTML can be found <strong><a href="https://www.w3schools.com/html/">here.</a></strong>
+    </p>
     <hr>
-    <div class="links">
-      <h1 style="background-color: #4d115c;">LINKS</h1>
-      <a href="https://www.linkedin.com/in/brannan-claxton-386679189/"><img src="images/linkedin.png"></img></a>
-      <a href="https://github.com/BrannanClaxton"><img src="images/github.png"></img></a>
-      <a href="mailto: claxtonhb@appstate.edu"><img src="images/email.png"></img></a>
-    </div>
-    <div class= "resume">
-      <h3>Check out my resume here!  It's pretty neat-o</h3>
-      <embed src="PDFs/Resume (pretty).pdf" type="application/pdf" width="100%" height="650px" />
-    </div>
+    <h1>Necessary skills and tools</h1>
+    <p>
+      <ol>
+        <li>Computer with internet connection</li>
+        <li>Pre-made web page AND/OR web design skills</li>
+        <li>IDE (Integrated Development Environment)</li>
+      </ol>
+    </p>
+    <hr>
+    <h1>Step 1: Create a GitHub account</h1>
+    <img src="images/Github Login.png" alt= "Sign up form"></img>
+    <h2><em>If you already have a GitHub account, feel free to move on to Step 2</em></h2>
+    <p class = "smush">
+      GitHub is one of the leading sites in sharing code and software projects.  It makes it easy to collaborate with others and work as a team.  Anyone
+      can sign up and use the service for free.  In addition, one of the services it offers is free hosting for one webpage per user.  This means that, as
+      long as you have a GitHub account, you can host a website.
+    </p>
+    <ul>
+      <li>Step 1.1: First, go to <strong><a href="https://github.com/">GitHub.</a></strong></li>
+      <li>Step 1.2: Next, click the "Sign Up" button on the top right of the page</li>
+      <ul>
+        <li>You should see something like the image to the right:</li>
+      </ul>
+      <li>Step 1.3: Fill in the information and click the "Create Account" button at the bottom of the sign-up page</li>
+      <ul>
+        <li>Make sure your username is something memorable, because it will eventually be part of the URL to your site!</li>
+        <li>You have now created a GitHub account!  There are other options to play around with, such as adding information to your profile, but
+        for now let's move on!</li>
+      </ul>
+    </ul>
+    <hr>
+    <h1>Step 2: Download and install the GitHub desktop application</h1>
+    <h2><em>Skip this step if you already have the GitHub app installed</em></h2>
+    <p class = "smush">The GitHub app allows for you to interface directly from your computer to the GitHub website without having to use a browser.  The application can
+      then interact with the files on your local machine, so that you can work on your webpage files and then use the desktop application to push the changes
+      out at your leisure
+    </p>
+    <ul>
+      <li>Step 2.1: Go to <a href="https://desktop.github.com/">this</a> website and click the purple "download" button.  After it's finished downloading, run the
+        file</li>
+      <li>Step 2.2: Log into your GitHub account through the application.  If you already have file repositories, they should show up under the "current repository"
+        tab on the upper-left of your window</li>
+      <ul>
+        <li>After the installation is complete, you can ignore the application for a little while.  We won't need it again until you're ready to
+        publish something!</li>
+      </ul>
+    </ul>
+    <hr>
+    <h1>Step 3: Create a Webpage Repository</h1>
+    <h2><em>Skip to this step if you already have a GitHub account AND you've installed the GitHub desktop app!</em></h2>
+    <p class = "smush">
+      A "repository" is basically a virtual space for storing files.  Files stored in the repository can be viewed, added to, or removed.  Other users
+      can also be given certain permissions, which allows them to manage the files in your repository.  While you can store files of most types in
+      a repository, we will only be creating a repository for our webpage files and the resources we want on the page, such as images.  There is a
+      specific set of steps in creating a repository that gets recoginzed by GitHub as a website to be hosted, so make sure you follow the steps.
+    </p>
+    <img class = "tiny" src="images/create repository.png" alt= "Toolbar"></img>
+    <ul>
+      <li>Step 3.1: In any part of the GitHub website, look at the top right of the page.  There should be three icons:</li>
+        <ul>
+          <li>A bell shaped icon where notifications pop up</li>
+          <li>A plus sign with a tiny arrow beside it.</li>
+          <li>A circle with another arrow beside it for navigating your personal profile</li>
+        </ul>
+      <li>Step 3.2: Click the plus sign</li>
+    </ul>
+    <img style = "width: 30%;height: 50%" src="images/repo.png" alt= "Repository Screen"></img>
+    <ul>
+      <li>Step 3.3: From the drop-down menu, click "New Repository" at the top</li>
+      <ul>
+        <li>Now you're at the "Create a new repository" page.  You should see something like the image to the right:</li>
+      </ul>
+      <li>Step 3.4: Set "Owner" to your username</li>
+      <li>Step 3.5: Now, name your repository ((your username)).github.io</li>
+      <ul>
+        <li>This step is <strong>VERY IMPORTANT!</strong></li>
+        <li>Your repository name <strong>MUST</strong> follow this
+          formula: ((your username)).github.io</li>
+        <li>Make sure you replace "((your username))" with the username tied to your account</li>
+        <li>If your repository name doesn't follow this rule, it will be saved as a personal repository and not a webpage repository</li>
+      </ul>
+    </ul>
+    <img style = "width: 30%;height: 50%" src="images/readme.png" alt= "Other options"></img>
+    <ul>
+      <ul>
+        <li>Since my GitHub username is "BrannanClaxton," my webpage's repository
+        name AND url is <Strong>BrannanClaxton.github.io</strong> (come visit if you want!)</li>
+      </ul>
+      <li>Step 3.6: Check the box for "Add a README file"</li>
+      <li>Step 3.7: Finally, hit the green "Create Repository" button at the bottom</li>
+      <ul>
+        <li>This is your brand new repository! Does it have that new car smell?  This is an online storage space
+        for all your  HTML & CSS code, images, files, and any other resources that are packaged into your page.
+        all updates to your webpage must be sent to this space to be included</li>
+      </ul>
+    </ul>
+    <hr>
+    <h1>Step 4: Combine it all</h1>
+    <p class = "smush">
+      We're almost done!  This tutorial isn't meant to leave you with a finished, professional website (though it could), but instead show you
+      how to take a webpage and put it somewhere accessible from a tablet, computer, phone, or Tesla!  Some of you may already have a beautiful
+      website complete but just needed a way to host it, in which case you are about to be able to relax!  However, I suspect that most
+      people do not have a finished webpage just waiting around, and that this guide is just the first step.  Either way, by the end of the
+      tutorial, you will have created a GitHub account, a webpage repository, and a way to link your local webpage files to the hosting site.
+      I think that's still pretty impressive!
+    </p>
+      <img style = "width: 30%;height: 50%" src="images/app.png" alt= "GitHub Desktop App"></img>
+    <ul>
+      <li>Step 4.1: Check that your new webpage repository is showing up in your list of repositories on the GitHub desktop application</li>
+      <li>Step 4.2: Navigate to it.  If done correctly, your window should look like this:</li>
+      <ul>
+        <li>Remember, your repository <strong>should</strong> be named ((your username)).github.io</li>
+      </ul>
+      <li>Step 4.3: Next, you must open your repository in your preferred external IDE (Integrated Development Environment).  If you don't have one, it might
+        be time to start shopping around.  There are a ton of options, and most should work with the GitHub application, but the one I use for
+        creating webpages in HTML & CSS is Atom.</li>
+      <li>Step 4.4: If you have an external IDE installed, click the button next to "Open the repository in your external editor."  The button should have
+        "Open in ((your IDE name))."  This button will send you to that IDE and open the repository for editing</li>
+    </ul>
+    <img style = "width: 30%;height: 50%" src="images/atom.png" alt= "Repository in Atom"></img>
+    <ul>
+      <li>Step 4.5: Create a "main page" file named "index".  This lets the GitHub repository know that this is the page your site will
+        open to</li>
+      <li>Step 4.6: Once you have all of the finished webpages in the repository in your IDE, it's time to publish!</li>
+      <li>Step 4.7: Open the GitHub desktop app again.  The updates you've made to the repository (files added or editted) should be listed already.</li>
+      <li>Step 4.8: Add a title and description to the update if you choose</li>
+      <li>Step 4.9: Click the blue "Commit to main" button</li>
+      <li>Step 4.10: Finally, click the "Push origin" button at the top of the application.  Give it a few minutes, and your page will be public!</li>
+      <li>Step 4.11: To check out your finished webpage, type in your repository name into your browser searchbar on any device.</li>
+      <ul>
+        <li>If you followed the steps correctly, you should be able to see your page!  Isn't that exciting!  If you can't see it, wait 10 minutes
+          and check again.  If it still isn't visible, you've missed a step or instruction.  Is your repository named correctly?</li>
+      </ul>
+    </ul>
+    <hr>
+    <h1>Mission Success!</h1>
+    <p>
+      You now have a space to express yourself digitally!  If you want to have a site that supports more complex function or has more
+      server space, you might want to consider migrating to a paid service.  With GitHub pages, you also can't change your domain name.
+      However, this page is the perfect jumping-off point for website creation!  You can test out your webpages on different devices,
+      experiment with different designs, and learn about what a webpage can do (other than look pretty).  You could choose
+      to set your desktop browser to open directly to your page to serve as a directory to your favorite websites, or use your page
+      to host your personal blog. It's all up to you.  The internet is now yours to control!
+    </p>
+    <hr>
+    <h1>FAQ:</h1>
+    <ul>
+      <li>Can I add interactivity to the page, such as a forum or message board?</li>
+      <ul>
+        <li>No, GitHub pages are known as "Static" web pages, which means all changes to the page are made by the client, not visitors
+        adding that kind of functionality would mean you need website hosting more powerful than GitHub</li>
+      </ul>
+      <li>What are some project ideas?</li>
+      <ul>
+        <li>Personal blog</li>
+        <li>Band webpage</li>
+        <li>Online encyclopedia</li>
+        <li>Visual art gallery</li>
+        <li>Digital photo album</li>
+        <li>Resume host</li>
+        <li>Restaurant review blog</li>
+        <li>Hub for your social media links</li>
+      </ul>
+      <li>Will I have to renew my website?</li>
+      <ul>
+        <li>No, GitHub will host your webpage for as long as you need</li>
+      </ul>
+      <li>I'm new to writing HTML.  Is it worth it to have a website if it's going to be basic?</li>
+      <ul>
+        <li>Totally!  Experimenting with HTML & CSS is the best way to learn.  It's better to have a simple page to start with,
+          then add in parts as you learn about them.  That way, over time, you can visualize how your web design skills have improved!</li>
+      </ul>
+      <li>Are there people who will make my webpage for me?</li>
+      <ul>
+        <li>Yes, but for a simplified wepage hosting service like GitHub, hiring someone to design a beautiful webpage is a bit...overkill.
+          If you want to make money from your site, hiring a professional web developer and paying for a website hosting service is normal.
+            However, GitHub websites are more like personal projects, and hiring someone to design your page would be like putting <thead>
+          Mona Lisa in the Dollar General</li>
+      </ul>
+    </ul>
+    <hr>
+    <h1>Helpful links and other resources</h1>
+    <ul>
+      <li><a href="https://docs.github.com/en/github/working-with-github-pages/creating-a-github-pages-site">Official GitHub Pages documentation</a></li>
+      <li><a href="https://guides.github.com/features/pages/">Official GitHub Pages guide</a></li>
+      <li><a href="https://medium.com/@svinkle/publish-and-share-your-own-website-for-free-with-github-2eff049a1cb5">Helpful set-up article</a></li>
+    </ul>
+    <hr>
+    <h1>Licensing and Contribution</h1>
+    <h2>Licensing</h2>
+    <p>
+      In your repository, you can choose to include a license.  Your work is yours, and you can decide what people do with it.
+      A license is easy to add to your work, and it can be a huge deterrent to people taking your work.  By default, copywrite laws apply
+      and no one is allowed to borrow or modify your work.  However, adding licenses allows people more freedom to use your code for their
+      own purposes.  There are many different types of licenses, so here are some resources for choosing and applying a license to your work.
+    </p>
+    <ul>
+      <li><a href = "https://choosealicense.com/">Here is a resource for helping you find the license that best suits your work</a></li>
+      <li><a href = "https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/adding-a-license-to-a-repository">
+        Here is the GitHub official documentation for including a license in your repository</a></li>
+    </ul>
+    <h2>Contribution</h2>
+    <p>
+      GitHub is a free service for most individual users.  However, there are options to upgrade your account for a fee per month.  Some of
+      the benefits include upgraded storage space, more control over who can see and change your code, and support from the GitHub team.
+      None of these paid services are required to create an account or webpage, but they can be beneficial and support a good company.
+    </p>
+    <ul>
+      <li><a href = "https://github.com/pricing">Click here to find out more about the available pricing options</a></li>
+    </ul>
   </body>
 </html>

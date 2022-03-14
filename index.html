@@ -1,375 +1,43 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>My Blog</title>
-    <link rel="stylesheet" href = "design.css">
+  <title>BooneTrekks</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+  integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+  crossorigin=""/>
+  <link rel="stylesheet" href="design.css"/>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+   crossorigin=""></script>
   </head>
   <body>
-    <h1 class="top">Brannan's Blog</h1>
-    <h2 class = "top">Hi</h2>
-    <h2 style="font-family:Arial" class="top">This is my blog.  Welcome.  For now, this blog is for my App State
-      CS Senior Seminar class this semester, but will likely live on in some
-      context in the future. Thanks for stopping by!</h2>
+    <img src = "pics/boonetrekks.png" alt = "Logo">
+    <div id = "map" style="width: 1200px; height: 650px;"></div>
+      <script>
+      var map = L.map('map').setView([36.21385, -81.67853], 13);
+
+      var tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+        maxZoom: 18,
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
+          'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+          id: 'mapbox/streets-v11',
+          tileSize: 512,
+          zoomOffset: -1
+      }).addTo(map);
+      var geojson1 = {
+      "type": "FeatureCollection",
+      "name": "tracks",
+      "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+      "features": [
+      { "type": "Feature", "properties": { }, "geometry": { "type": "MultiLineString", "coordinates": [ [ [ -81.70193765, 36.15533437 ], [ -81.70130475, 36.15527001 ], [ -81.70108115, 36.15522506 ], [ -81.70111257, 36.15408406 ], [ -81.70045642, 36.15410924 ], [ -81.70028196, 36.15488075 ], [ -81.70008347, 36.15559976 ], [ -81.70114103, 36.15595712 ], [ -81.70235645, 36.15626661 ], [ -81.70277157, 36.15671399 ], [ -81.7027403, 36.15712925 ], [ -81.70240042, 36.15670672 ], [ -81.70242612, 36.15658282 ], [ -81.70240448, 36.15658074 ], [ -81.70168542, 36.15667465 ], [ -81.7009413, 36.15663706 ], [ -81.70003979, 36.15681005 ], [ -81.69953506, 36.15687578 ], [ -81.7002694, 36.15712836 ], [ -81.70122265, 36.1570378 ], [ -81.70234354, 36.15676897 ], [ -81.70291111, 36.15759274 ], [ -81.70349147, 36.15847992 ], [ -81.70381775, 36.1593569 ], [ -81.70459111, 36.15967017 ], [ -81.70547319, 36.16059293 ], [ -81.70596939, 36.16089221 ], [ -81.70621454, 36.16039436 ], [ -81.70612547, 36.16054713 ], [ -81.70604832, 36.16060611 ], [ -81.70615957, 36.16064033 ], [ -81.70634973, 36.16039105 ], [ -81.70640391, 36.16043569 ], [ -81.70668602, 36.15971532 ], [ -81.70595674, 36.15835166 ], [ -81.70573365, 36.15760528 ], [ -81.70616337, 36.15786266 ], [ -81.70665652, 36.15834965 ], [ -81.70736738, 36.15772009 ], [ -81.70830069, 36.15741785 ], [ -81.70808472, 36.15819405 ], [ -81.70844419, 36.15901927 ], [ -81.70930204, 36.15946346 ], [ -81.70980625, 36.16018007 ], [ -81.71040127, 36.16102531 ], [ -81.71166564, 36.16174069 ], [ -81.71139932, 36.16242557 ], [ -81.71128696, 36.16344254 ], [ -81.71102528, 36.16435795 ], [ -81.71084785, 36.16434868 ], [ -81.71091254, 36.16433013 ], [ -81.71091579, 36.16433565 ], [ -81.71114453, 36.16664574 ], [ -81.71051571, 36.16723806 ], [ -81.70973011, 36.16826764 ], [ -81.70941105, 36.16930218 ], [ -81.70889492, 36.17055387 ], [ -81.70858613, 36.17129919 ], [ -81.70827067, 36.1717773 ], [ -81.70813498, 36.17173011 ], [ -81.7076294, 36.17261071 ], [ -81.70785026, 36.17368862 ], [ -81.70812513, 36.17425862 ], [ -81.70884054, 36.17438829 ], [ -81.70962172, 36.17425172 ], [ -81.70937871, 36.17430889 ], [ -81.70896904, 36.17429432 ], [ -81.70843485, 36.17426403 ], [ -81.70813075, 36.17380539 ], [ -81.70828163, 36.17434026 ], [ -81.70808001, 36.17374143 ], [ -81.70777866, 36.17340883 ], [ -81.7073246, 36.17295901 ], [ -81.70744405, 36.17223745 ], [ -81.7079231, 36.17200413 ], [ -81.70841435, 36.17117039 ], [ -81.7089697, 36.1702963 ], [ -81.70923297, 36.17011997 ], [ -81.70906868, 36.16990552 ], [ -81.70932477, 36.16949952 ], [ -81.70956442, 36.16857936 ], [ -81.70987426, 36.16798583 ], [ -81.71045552, 36.16737199 ], [ -81.71120302, 36.16668423 ], [ -81.71193308, 36.16636208 ], [ -81.71138376, 36.16573672 ], [ -81.71193135, 36.16514957 ], [ -81.71197435, 36.16543578 ], [ -81.71192941, 36.16565096 ], [ -81.71162881, 36.16563615 ], [ -81.7119879, 36.16550516 ], [ -81.71201518, 36.16594457 ], [ -81.71236612, 36.16514864 ], [ -81.71155107, 36.16495257 ], [ -81.71098979, 36.16456783 ], [ -81.71045746, 36.1645107 ], [ -81.70931669, 36.164169 ], [ -81.70795713, 36.16384753 ], [ -81.70681278, 36.1638799 ], [ -81.70577773, 36.16346669 ], [ -81.70651591, 36.16335747 ], [ -81.70710901, 36.16327886 ], [ -81.70695386, 36.16278517 ], [ -81.70748952, 36.16213603 ], [ -81.70868663, 36.16122166 ], [ -81.70961736, 36.16151477 ], [ -81.71026798, 36.1625275 ], [ -81.70982214, 36.16321046 ], [ -81.70867949, 36.16218775 ], [ -81.70937934, 36.1617238 ], [ -81.70956898, 36.16271517 ], [ -81.70972815, 36.16242953 ], [ -81.70926328, 36.16206782 ], [ -81.70930125, 36.16231246 ], [ -81.70790073, 36.16298795 ], [ -81.70667307, 36.16319416 ], [ -81.70642447, 36.16273281 ], [ -81.70662974, 36.16251343 ], [ -81.70697503, 36.1619017 ], [ -81.70724265, 36.16138791 ], [ -81.70728884, 36.16064056 ], [ -81.70709769, 36.15974981 ], [ -81.70706282, 36.15940026 ], [ -81.70652522, 36.15857389 ], [ -81.70592519, 36.15752927 ], [ -81.70515707, 36.15717201 ], [ -81.70463164, 36.15658449 ], [ -81.70396643, 36.15575798 ], [ -81.70417617, 36.15500311 ], [ -81.70416495, 36.1545 ], [ -81.70513337, 36.15394435 ], [ -81.70499658, 36.15335894 ], [ -81.70501918, 36.15254511 ], [ -81.70525408, 36.15176577 ], [ -81.7052958, 36.15183847 ], [ -81.70441808, 36.15177069 ], [ -81.704284, 36.15163773 ], [ -81.70300393, 36.15192091 ], [ -81.70232352, 36.15266684 ], [ -81.70220329, 36.1529842 ], [ -81.7021281, 36.15375602 ], [ -81.70220936, 36.1547059 ], [ -81.7021374, 36.15540326 ], [ -81.70128141, 36.155164 ], [ -81.70141784, 36.15421637 ], [ -81.70094736, 36.15351039 ], [ -81.69959418, 36.15335995 ], [ -81.6997249, 36.15347072 ] ] ] } }
+      ]
+      };
+      L.geoJSON(geojson1).addTo(map);
+      </script>
+    </div>
     <hr>
-    <h1>Entry #1 - 8/20/2021</h1>
-    <h2><em>Describe your best "in class" computing experience as a computer science
-      student and your best "outside the class" computing experience during your
-      time thus far as a computer science student.</em></h2>
-    <h3>My best "in class" experience was probably all the way back in CS1400,
-       when I had few projects under my belt and printing "hello world" still
-       felt really cool.  The lab assignment was to print a stub based on input
-       from a console.  It took me so long and I was so frustrated for days, and
-       it was the first (of many) moment where I started thinking "do I really want
-       to pursue a career where I'm frustrated all the time?"  Finally, however,
-       after fiddling with scanners and print statements, I finally tested the
-       program one more time and it worked! It printed the whole stub with correct
-       format and math done accurately.  I was extatic!  The hours I'd spent sweating
-       and banging my head against the wall paid off, and the resulting feeling was
-       so much more fulfilling than anything I'd felt before.  I had written code
-       before the lab, but it was the first project where I had to use different
-       skills together and wasn't hand-held the whole time.  I realized then that,
-       no matter how frustrated I would get pursuing CS, the feeling of accomplishment
-       will always overshadow the anguish and confusion</h3>
-    <h3>My best "outside the class" experience mostly comes from website development
-       practice.  Not necessarily one time specifically, but I've had many chill nights
-       where I get to just design a canvas how I want and put whatever I want on
-       there.  Maybe I'm feeling like making a bigfoot website tonight, so I'd find
-       cool graphics and info that I can collage together to make a nice website.
-        I get to explore cool interest, work the creative/design aspect of my brain,
-        and I still feel like I'm being productive towards my career.  Most of my
-        other projects feel like work or homework, or are about things I'm not as
-        passionate about, but designing websites has always been a calming, attractive
-        activity for me.  This is why I'd like to pursue frontend web dev as a career
-        some day.</h3>
-        <hr>
-      <h1>Entry #2 - 8/26/2021</h1>
-      <h2><em>Make an entry in your blog reflecting on our discussion in class
-        about personal ethics.  You might elaborate on things you did not get to
-        talk about in class, give your overall impression of the discussion,
-        identify the highlights of the discussion, or whatever you think would
-        be of interest to others concerning our discussion.</em></h2>
-      <h3>While I mentioned my religious background in my ethics presentation,
-        I believe it is an important enough aspect of my personality and ethical
-        journey that it needs further elaboration.  I grew up in a progressive
-        Methodist church to 2 progressive Christian people.  I never spent much
-        time thinking about other religions or morality systems, and as many of
-        the other students said I tried my best to follow Jesus' teachings and
-        the Golden Rule.  However, in my later high school and college years,
-        I matured more as a person and gained some perspective.  I began to see
-        the Bible as less of the Direct Word of God and more as a book of God-inspired
-        poetry that explains a lot about the human experience.  It was also at this
-        time that I started researching Buddhism and east Asian religions.  This
-        shifted my ethical process from the Golden Rule to more pacifistic mindset.
-        Now, instead of "treat others how you'd like to be treated" I am trying to
-        treat others like they are me in a different body.  I believe that a lot
-        of people reach the wrong side of the Golden Rule, which is that "since
-        so-and-so wronged me in some way, they don't deserve my goodwill."  An eye
-        for an eye and all that.  The Buddhist perspective is that there is
-        suffering in the world, and that the way to reach enlightenment is to remove
-        suffering and material attachments.  Therefore, I've done my best to practice
-        minimalism and stoicism, which I believe complement Buddhism and therefore
-        fit into my ethics system.</h3>
-        <h3>One thing that surpised me about our class discussion was how individualistic
-        everyone seemed.  Many people described in some way an "every man for himself"
-        attitude, where the priority at the end of the day is one's self interest.
-        While I respect individuality and everyone's own uniqueness, I find the CS
-        field to be incredibly collaborative and community-oriented - every library
-        in a programming language was developed by others and most are available
-        for use for free.  This is especially true for open-source software.
-        Therefore, the fact that so many people referenced having ethics based in
-        a "do what's best for me" mindset was pretty interesting and a little
-        offputting.  I believe in the open, free sharing of information and ideas
-        and working towards the betterment of the world, so an ethical ideology
-        that only benefits yourself does not hold up well in my eyes.</h3>
-        <hr>
-      <h1>Entry #3 - 9/6/21</h1>
-      <h2><em>Share thoughts about the presentation and discussion of the Hive
-        Tracks and Bee Informed Partnership case study</em></h2>
-      <h3>The ethical issues people had with the Hive Tracks and Bee Informed
-        Partnership were interesting to me because it seemed like the split people
-        felt between privacy, security, and intellectural property issues was pretty
-        even.  The class fell pretty neatly into the three different categories
-        of ethics issues.
-      </h3>
-      <h3>
-        Overall, I think thought that there weren't too many issues with Hive Tracks
-        or the Partnership.  Once the groups met and the ethical issues were raised,
-        I thought that you (Dr. Wilkes) were pretty easily able to answer issues
-        that the class had. Any worries I had about the projects were nonexistent
-        after the class had ended.  And, even if there were some ethical issues that
-        still need to be worked out, I think that the good that the project does
-        overshadows any theoretical problems.  However, I still think that the issues
-        my group (privacy) brought up were still pretty valid.  For example, I think
-        that the concept of bees being used a biosensors for property outside the
-        beekeepers' could raise flags.  Even if the data collected from the bees
-        isn't incredibly specific and couldn't be used to scan a person's land,
-        people with property nearby could still be paranoid about the bees' sensing
-        ability.  My friend Sierra Doughtery who is an Ecology, Evolution, and Environmental
-        Science (EEE) major was talking to me about how bees have amazing facial
-        recognition abilities that come from an evolutionary skill for recognizing
-        flowers.  It may not be a field that Hive Tracks is attempting to enter
-        specifically, but it's an example of how people's perception of bee behavior
-        could make them more paranoid and therefore reject Hive Tracks based on
-        a privacy argument.
-      </h3>
-      <hr>
-      <h1>Entry #4 - 9/21/21</h1>
-      <h2><em>Make an entry in your blog describing your reaction to the
-        information presented in the documentary Citizenfour? Did the documentary
-        have an effect on your opinion of Edward Snowden or the US government?</em></h2>
-      <h3>I'd heard from Edward Snowden years ago on the Joe Rogan podcast.  He
-        came on to talk about some of the same stuff he described in the documentary,
-        such as the PRISM program and other government overreaching organizations.
-        He also talked about some of his responsibilities in Hawaii and when he
-        finally decided to bite the bullet and release the info.  I remember being
-        suprised by how much classified information he had access to even though
-        he was just a systems administrator.  The podcast made me aware of the US
-        Government's privacy violations and since then I actively followed the story
-        involving Snowden and Julian Assange.  I was grossed out at the time and
-        I feel even more so now.  I believe strongly in anonymity online on both
-        sides.  I don't like to post much personal information online and I don't
-        appreciate internet companies recording personal information.  I think that
-        the internet works best when people can share ideas without their name or
-        identifing information attached, so that people will base their responses
-        off of the information provided instead of the person making the argument.
-        This is the free market of ideas.
-      </h3>
-      <h3>
-        The documentary was very interesting to me because it provided more of a
-        view of Ed's personal life after leaking the documents.  While I read about
-        him being "on the run" and being searched for by the government, I didn't
-        get as good a view of how it really affected him and how stressful the situation
-        was for him.  I was especially angry after seeing Obama's statement on behalf
-        of "the American People." While I liked Obama's presidency and overall had
-        a favorable view of him, I strongly disliked how dismissive he was of Snowden's
-        position and the need for transparency in the government.  I think he should've
-        pardoned Snowden and Assange.  One idea that I was left with after finishing
-        the documentary was that the government needs to have more systems of checks
-        and balances.  I think the founding fathers were smart in creating the balance
-        between the different branches of government, but we've moved drastically
-        away from that system.  It's apparent that the NSA had no one to tell them
-        "no," and once Snowden leaked the documents he had no possible way to defend
-        himself legally.  I'm not anti-government, but I think there's a way to create
-        some kind of new system of checks and balances to make sure that no single
-        government organization can be granted the power the NSA has to use our own
-        technology systems against us.  I believe that this could be accomplished
-        by bringing in an unbiased 3rd party committee, possibly from another country
-        or the UN, to go through the PRISM system and other NSA surveillance equipment and
-        make a judgement on whether it's constitutional and morally right.  Whatever
-        suggestions they make the NSA has to accept unconditionally, and if the NSA's
-        actions are too heinous to be fixed, the organization should be dismantled
-        and the confidential information made public.  Overall, the documentary made
-        me feel strongly for Snowden and made me think more critically of the government.
-      </h3>
-      <hr>
-      <h1>Entry #5 - 10/3/21</h1>
-      <h2><em>Share your reaction to the TED Talks on Privacy or the exercises this
-        week on privacy policies.</em></h2>
-      <h3>
-        A lot of the discussions we had in class and the videos we watched made me
-        overall very uncomfortable.  The whole concept of "passive surveillance,"
-        where everyone's digital data is monitored in the search for a few "criminals"
-        communicating online, seems like an overstep by the government to me.  Authoritarian
-        groups have always had a history of wanting to monitor the communications
-        and actions of the average person, and internet surveillance has only given
-        those in power the tools to gather more data and learn more about the habits
-        and behaviors of regular people.  All of this is not new information to me,
-        since I and most of my generation have grown up in this modern surveillance
-        society.  We have all learned early that nothing online is truly "private,"
-        and I think it has taught many members of my generation that they must find
-        alternative methods to continue to use online services safely.  I believe
-        that public schools were the first introduction on how to be truly private
-        online.  I learned how to install a VPN on my laptop in my freshman year
-        of high school to get around the monitoring system in place, and even in
-        middle school my friends figured out how to get "teacher access" on the school
-        computers so that we could get onto blocked sites like YouTube and game websites.
-        So, while some people are recently learning that their internet activites
-        are being monitored, I don't believe anyone around my age is surprised.
-        Even if the website I use isn't tracking me, I still assume that my Wifi
-        provider, local authorities, or the NSA is watching every single thing I do
-        online.  This isn't news to me, this is the environment I grew up in.  It's
-        slightly ironic to me that we are learning about privacy violations from a
-        University that monitors their students internet activitites for "safety"
-        purposes.  I know that you don't have anything to do with these decisions,
-        Dr. Wilkes, but the fact that we're about being taught about privacy from
-        the same academic entity that doesn't have any concerns about the privacy
-        of their students is pretty gross to me.
-      </h3>
-      <h3>
-        While I don't think the government or any organization should be monitoring
-        the actions of normal folk online, I also don't think that these groups are
-        going to stop anytime soon out of the kindness of their hearts.  The NSA
-        has enough power now where they can come up with any "potential danger" that
-        will require more surveillance tools and more control.  The only chance that
-        we have to protect ourself and our privacy is to take matters into our own
-        hands through encryption software and VPNs.  We can't rely on the government
-        protect our privacy, so we need to learn how to do it ourselves.  I think
-        that soon more privacy-enforcing software will be widely available and become
-        more popular.  It's our own responsibility to protect ourselves from surveillance.
-      </h3>
-      <hr>
-      <h1>Entry #6 - 10/8/21</h1>
-        <h2><em>Make an entry in your blog discussing the most interesting thing you
-          learned as a result of the blockchain videos/discussions.</em></h2>
-        <h3>
-          While I'd heard about the blockchain in the past in relation to bitcoin,
-          I never attempted to fully understand it and its uses outside of cryptocurrency.
-          The links people shared to the class Wiki were technical and informative,
-          and I learned a lot about the science and logic behind the development of
-          blockchain technology in its base form.  I then did some more exploration
-          of the topic on my own into possible applications of the blockchain,
-          specifically NFTs.  One of my favorite YouTubers, Johnny Harris, made a
-          video recently titled "NFTs, Explained" which gives an overview of what
-          an NFT represents and the logic behind the "fungible-nonfungible" difference.
-          This concept really blew my mind, because it's strange to think about
-          someone paying large amounts of money for things that can be replicated
-          infinitely.  Johnny Harris also links this topic and the financial logic
-          behind these transactions to the Blockchain.  At this point I was familiar
-          with blockchain technology but the way that it was contextualized with
-          a practical application like an NFT changed my perspective of how the blockchain
-          could be used.  Other than its use in cryptocurrency, the blockchain always
-          seemed like one of those discoveries that was cool in theory but lacked
-          a real use for the average person.  I'm starting to believe that we are
-          just beginning to discover what Blockchain technology could create.
-      </h3>
-      <h3>
-          I'm very supportive of new technology that is free to access and works
-          collaboratively.  I think that the future of the internet will be more decentralized
-          and less structured.  This technology can work well precisely because there's
-          no core group "in charge."  It works because people have faith in each
-          other as a whole rather than one single entity, like a bank or a government.
-          Blockchain technology is decentralized at its center.  It relies on people
-          trusting the collaborative ledger.  And it works without an "overseer."
-          I think more of our day-to-day life will be influenced be "decentralized"
-          processes.  For example, I think that we would benefit from using blockchain
-          technology in the voting system or in data integrity in general.  There
-          are infinite applications and I think that it will be understood by many
-          more people in the near future.
-      </h3>
-    <hr>
-    <h1>Entry #7 - 11/3/21</h1>
-      <h2>
-        <em>
-        Now that you have heard the ideas that people are considering for their
-        final project, make a blog post describing the final topic you are most
-        interested in hearing more about and why.
-        </em>
-      </h2>
-      <h3>
-        Many of the topics I'm most interested are related to crypto and decentralization
-        in general.  While there is a lot to learn about that space, I'm more
-        interested in the ethical and social application of DeFi and tokenization.
-        I think the way we exchange value for goods and services will change a lot
-        over the next few years, and while I'm interested in specific coins and tokens
-        I'm more excited to see the presentations that have a wider perspective and
-        are going to dive into ways our day-to-day lives will change.  I can't remember
-        who chose it, but one of the topics that stood out to me was about DeFi specifically.
-        I think a lot of the issues in our world, such as poverty and hunger, stem
-        from a supply chain failure, mostly due to corporate greed.  Businesses like
-        banks hold a majority of the wealth and value in the world simply because
-        they quickly consolidated power and were able to profit off of those trying
-        to just get by in the world.  The US is arguably the most financially powerful
-        country in the world, and most of that wealth came from the ability to centralize
-        that power within a few corporations and government entities to the detriment
-        of smaller countries with fewer resources.  I think that a lot of the ideas
-        we've talked about in this class, such as privacy, are tools for overcoming
-        the power of these entities and returning value to the indvidual in a decentralized
-        way.  Whoever is presenting on DeFi technology has a lot of work to do just
-        to scratch the surface of this complex topic, but I think that whatever they
-        discover will be quite illuminating.
-      </h3>
-      <h3>
-        Overall, I think most of the presentations will be interesting.  Any project
-        where students are allowed to be pretty free with their topic choices end
-        up way more interesting than assigned topics.  I have been taking a philosophy
-        class this semester and I'm really interested in combining it with topics
-        from this class in my presentation of the ethics of social media platforms.
-      </h3>
-    <hr>
-    <h1>Entry #8 - 11/22/21</h1>
-      <h2>
-        Make a final blog post describing the three most important things you
-        learned this semester and offer one piece of advice to students taking
-        the class next semester.
-      </h2>
-      <h3>
-        I wasn't really sure what to expect coming into this class.  I'd already
-        completed my technical writing class, so I knew this was going to be slightly
-        different.  The phrase "Senior Seminar" has some scary connotations, as I
-        still have trouble believing I'm a senior and it sounds very advanced and
-        technical.  I was worried that there would be much more technical learning
-        involved and more focus on touching up "career-ready" skills.  However, I
-        was happily suprised to learn this class was more focused on "big picture"
-        learning, such as perspectives on the current tech industry and ethical
-        issues involved with computer science.  I feel too often programmers want
-        to take credit for the creation of popular software without accepting
-        the backlash of negative repurcussions.  This class taught me overall
-        self-awareness and how to be critical of the tech industry's many
-        shortcomings.
-      </h3>
-      <h2>
-        1. Privacy is being attacked
-      </h2>
-      <h3>
-        One of the big cultural shifts occuring currently is the removal of the
-        individual's privacy online.  People are realizing that tech companies own
-        more and more of their users' personal data and are learning a lot about
-        their habits and tendencies.  This is leading to a more authoritarian and
-        protective internet, where platforms want to accumulate user data under
-        the guise of a safer and more individualized experience.  However, I think
-        that overall this is a bad idea and will only result in harmful data leaks,
-        corporate overstepping, and an angry userbase.
-      </h3>
-      <h2>
-        2. Decentralization is the future
-      </h2>
-      <h3>
-        I think there will be more decentralized systems in the near future, ranging
-        from finances to government programs.  With the introduction of technologies
-        like the Blockchain and Cryptocurrency, people are starting to wake up to
-        the idea that we don't need a group of faceless "overseers" keeping an eye
-        on us to enforce rules.  I think that Blockchain technology implementation
-        will start to show people an alternative to the current social systems we
-        use, such as banks and employers.  A decentralized system will remove a lot
-        of the dead weight in society, such as a lot of management positions and
-        "middlemen."  This increase in overall value is not given away to CEOs and
-        representatives, but the people that produce the value themselves.  This
-        could be a great way to return power in society to producers and creators.
-        I predict more worker co-ops and cooperative organizations without hierarchies
-        being started in the future.
-      </h3>
-      <h2>
-        3. Personal skills are important
-      </h2>
-      <h3>
-        There are a lot of programmers that think that when it comes to a career,
-        their technical skills are the only metric by which they are hired.  Based
-        on my experience in the hiring process, this is definitely not true.  While
-        the technical aspect of interviews is important, the ability to explain oneself
-        succinctly and talk about experiences outside of schooling is very influential
-        to an interviewer.  One of the best ways to stand out in the tech industry
-        is to be personable, down-to-earth, and easy to talk to.  Connections are
-        important in the industry, and the only way to expand one's network is to
-        get comfortable meeting new people and to seem approachable.  Computer Science
-        majors are famously antisocial and hard to talk to.  I think one of the goals
-        of this class is to teach students how to talk to each other and learn skills 
-        unrelated to programming such as public speaking and debate.
-      </h3>
-      <h3>
-        Advice to others:  This class should be seen as a door to a potential career
-        instead of a distraction from more technical classes.  I can attest to the
-        fact that this class could impact your future heavily, since I literally
-        got a job with a company I heard of for the first time in this class, Fast
-        Enterprises.  Before their recruitment presentation, I had never heard of
-        Fast before and I was still very unsure of my future after graduation.  Once
-        I saw their presentation to the class, I was immediately excited about the
-        prospect of working for them and applied as fast as possible.  Over the course
-        of the interview process I utilized many of the skills I learned in class
-        such as my "elevator pitch" and the ability to verbalize my values.  Because
-        of all of this, I now have a job waiting for me after graduation with a company
-        I'm excited to work for!  And without being in this class, I likely never
-        would have heard of Fast Enterprises.  So, overall my advice is to take the
-        class seriously and utilize all of the resources and skills provided.
-      </h3>
-    </body>
+    <div class = "database">
+      <p><i>Database of hikes listed here</i></p>
+    </div>
+  </body>
 </html>

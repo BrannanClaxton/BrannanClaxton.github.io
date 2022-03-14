@@ -1,75 +1,29 @@
-img {
-  float: right;
-  border: 5px solid #ffffff;
-  max-width:30%;
-  max-height:350px;
-}
-
-li {
-  font-size: 18px;
-  padding-bottom: 10px;
-  max-width: 50%;
-}
-
-.top {
-  text-align: center;
-}
-
-.smush {
-  max-width:50%;
-}
-
-.tiny {
-  width:100px;
-  height:100px;
-  margin-right: 20%;
-}
-
 body {
-  background-image: linear-gradient(90deg, rgba(194, 255, 242, .75), rgba(186, 104, 237, .25));
-  margin:10%;
-}
-
-.body {
-  margin-left: 5%;
-  margin-right: 5%;
-  padding-left: 5%;
-  padding-right: 20px;
-  padding-top: 5px;
-  background-color: #4d4f4d;
-  color: white;
-}
-
-hr {
-  color: #000000;
-  background-color: #000000;
-}
-
-a:link {
-  color: #89fc81;
-}
-
-a:visited {
-  color: #ff87f5;
-}
-
-.head {
-  margin-left: 5%;
-  margin-right: 5%;
-  margin-bottom:20px;
-  padding-top: 20px;
-  padding-bottom:5px;
-  background-color: #4d4f4d;
-  color: white;
-  font-family: 'Trebuchet MS';
+  background: linear-gradient(#000000, #3e4042);
+  color:white;
 }
 
 h1 {
-  font-family: 'Trebuchet MS';
+  color: white;
 }
 
-.top {
-  float:center;
-  font-family: sans-serif;
-  color: purple;
+img {
+  width: 50%;
+  height: 50%;
+  float:right;
+  margin-right: 153px;
+}
+
+#map {
+  margin-top:100px;
+  margin-left: 150px;
+  height: 180px;
+}
+
+.database {
+  color: white;
+}
+
+p {
+  margin-left: 100px;
 }

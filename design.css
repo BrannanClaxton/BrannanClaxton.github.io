@@ -7,7 +7,12 @@ h1 {
   color: white;
 }
 
-img {
+.app {
+  width: 5%;
+  height: 5%;
+}
+
+.logo {
   width: 50%;
   height: 50%;
   float:right;
@@ -15,8 +20,8 @@ img {
 }
 
 #map {
-  margin-top:100px;
   margin-left: 150px;
+  margin-bottom: 100px;
   height: 180px;
 }
 

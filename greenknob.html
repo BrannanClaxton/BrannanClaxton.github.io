@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title>Green Knob Hike/Run</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+  integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+  crossorigin=""/>
+  <link rel="stylesheet" href="design.css"/>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+   crossorigin=""></script>
+  </head>
+  <body>
+    <img src = "pics/app-state-block-a-logo-600px.png" class = "app" alt = "App Logo">
+    <img src = "pics/boonetrekks.png" class = "logo" alt = "Logo">
+    <div id = "map" style="width: 1100px; height: 600px;"></div>
+      <script>
+      var map = L.map('map').setView([36.146205, -81.715440], 16);
+
+      var tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+        maxZoom: 18,
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
+          'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+          id: 'mapbox/streets-v11',
+          tileSize: 512,
+          zoomOffset: -1
+      }).addTo(map);
+      var greenknob = {
+      "type":"FeatureCollection","features":[{"type":"Feature","properties":{"j":"dQd"},"geometry":{"type":"MultiLineString","coordinates":[
+      [[-81.71940416,36.14257757],[-81.71954084,36.14208921],[-81.71686409,36.14305266],[-81.71619439,36.14322985],[-81.71449702,36.14362771],[-81.71314944,36.14418889],[-81.71177862,36.14420631],[-81.7120237,36.14587253],[-81.71149476,36.14716917],[-81.7125083,36.14804978],[-81.71394271,36.14912454],[-81.71425414,36.15075121],[-81.71521778,36.15079927],[-81.7165023,36.14925982],[-81.71695581,36.14844468],[-81.7183316,36.14831958],[-81.71931815,36.14631445],[-81.72006502,36.14491946],[-81.72105396,36.14418889],[-81.72148978,36.14298541],[-81.72054031,36.14231848],[-81.71940416,36.14257757]]]}}]
+      };
+      L.geoJSON(greenknob).addTo(map);
+      </script>
+      <a href = "index.html">Home</a>
+      <a href = "http://localhost:5984/routes/_design/Design/_show/All/greenknob">Database</a>
+  </body>
+</html>

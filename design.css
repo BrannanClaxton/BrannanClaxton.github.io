@@ -18,9 +18,9 @@ h1 {
 }
 
 #map {
-  margin-bottom: 100px;
   height: 180px;
   float:right;
+  margin-bottom:10px;
 }
 
 .database {
@@ -35,7 +35,7 @@ p {
 
 }
 
-.blurb {
+.data {
   font-family: Helvetica;
   width:21%;
   font-size: 12px;
@@ -43,4 +43,27 @@ p {
   padding: 25px;
   padding-top: 5px;
   margin-top: 30px;
+}
+
+.blurb {
+  font-family: Helvetica;
+  font-size: 12px;
+  padding: 50px;
+}
+
+a:visited {
+  color: green;
+}
+
+.table {
+  width: 23%;
+  margin-left:15px;
+  margin-top:31px;
+  border: 1px solid yellow;
+  background:rgba(38, 38, 38, .5);
+  padding-left:5px;
+}
+
+th {
+  border-bottom: 1px solid white;
 }

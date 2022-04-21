@@ -18,7 +18,7 @@
       <script>
       $( "p" ).add( "div" ).addClass( "widget" );
       var pdiv = $( "p" ).add( "div" );
-      var map = L.map('map').setView([36.21385, -81.6785], 13);
+      var map = L.map('map').setView([36.21385, -81.6785], 12);
 
       var tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
         maxZoom: 18,
@@ -59,30 +59,97 @@
       L.geoJSON(hangingrock).addTo(map);
       L.geoJSON(greenwaycircuit).addTo(map);
       </script>
-    </div>
-    <div class = "database">
-      <p><i>Database of hikes listed here</i></p>
-      <div class = "route">
+    <div class = "table">
+    <table>
+    <tr>
+      <th>
+        Route Name
+      </th>
+      <th>
+        Distance in miles
+      </th>
+      <th>
+        Best for
+      </th>
+    </tr>
+    <tr>
+      <td>
         <a href = "richmtn.html">Rich Mountain Hike</a>
-      </div>
-      <div class = "route">
-        <a href = "boonefork.html">Boone Fork Hike</a>
-      </div>
-      <div class = "route">
-        <a href = "greenknob.html">Green Knob Hike/Run</a>
-      </div>
-      <div class = "route">
+      </td>
+      <td>
+        6.3
+      </td>
+      <td>
+        Hiking, Running
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <a href = "boonefork.html">Boone Fork Hike & Run</a>
+      </td>
+      <td>
+        5.2
+      </td>
+      <td>
+        Hiking, Running
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <a href = "greenknob.html">Green Knob Hike & Run</a>
+      </td>
+      <td>
+        2.3
+      </td>
+      <td>
+        Hiking, Running
+      </td>
+    </tr>
+    <tr>
+      <td>
         <a href = "mosescone.html">Moses Cone Hike</a>
-      </div>
-      <div class = "route">
+      </td>
+      <td>
+        7.9
+      </td>
+      <td>
+        Hiking, Running
+      </td>
+    </tr>
+    <tr>
+      <td>
         <a href = "campus2greenway.html">Campus to Greenway Run</a>
-      </div>
-      <div class = "route">
+      </td>
+      <td>
+        5.8
+      </td>
+      <td>
+        Walking, Running
+      <td>
+    </tr>
+    <tr>
+      <td>
         <a href = "hangingrock.html">Hanging Rock Hike</a>
-      </div>
-      <div class = "route">
+      </td>
+      <td>
+        3.8
+      </td>
+      <td>
+        Hiking
+      </td>
+    </tr>
+    <tr>
+      <td>
         <a href = "greenwaycircuit.html">Greenway Circuit</a>
-      </div>
+      </td>
+      <td>
+        5.2
+      </td>
+      <td>
+        Walking, Running
+      </td>
+    </tr>
+    </table>
     </div>
   </body>
 </html>

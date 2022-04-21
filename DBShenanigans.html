@@ -2,6 +2,9 @@
 <html>
   <head>
   <title>Database Access</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+  integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+  crossorigin=""/>
   <link rel="stylesheet" href="design.css"/>
   <script type="text/javascript" language="javascript"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -12,11 +15,148 @@
   src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
-  <link rel="shortcut icon" href="#">
   </head>
   <body>
-  <h1>Hello, Route is <span id="name"></span></h1>
-  <a href = "http://localhost:5984/routes/_design/Design/_show/All/boonefork">TEST</a>
-  <a href = "http://localhost:5984/routes/_design/Design/_show/RouteName/greenknob">TEST2</a>
+  <div id = "map" style="width: 1100px; height: 600px;"></div>
+    <script>
+    var route = "/boonefork";
+    var url = "http://localhost:5984/routes/_design/Design/_show/";
+
+    var name;
+    var distance;
+    var hike;
+    var run;
+    var rating;
+    var direction;
+    var winterAccessible;
+    var start;
+    var difficulty;
+    var water;
+    var wideViews;
+    var tmap;
+
+    var xmln = new XMLHttpRequest();
+    var xmldm = new XMLHttpRequest();
+    var xmlh = new XMLHttpRequest();
+    var xmlr = new XMLHttpRequest();
+    var xmlrt = new XMLHttpRequest();
+    var xmld = new XMLHttpRequest();
+    var xmlwa = new XMLHttpRequest();
+    var xmls = new XMLHttpRequest();
+    var xmldf = new XMLHttpRequest();
+    var xmlw = new XMLHttpRequest();
+    var xmlwv = new XMLHttpRequest();
+    var xmlm = new XMLHttpRequest();
+
+    xmln.open("GET", url + "RouteName" + route, true);
+    xmln.onload = function () {
+      name = JSON.stringify(xmln.responseText);
+      document.getElementById('name').innerHTML = name;
+    }
+    xmln.send();
+
+    xmldm.open("GET", url + "DistanceMiles" + route, true);
+    xmldm.onload = function () {
+      distance = JSON.stringify(xmldm.responseText);
+      document.getElementById('distance').innerHTML = distance;
+    }
+    xmldm.send();
+
+    xmlh.open("GET", url + "Hike" + route, true);
+    xmlh.onload = function () {
+      hike = JSON.stringify(xmlh.responseText);
+      document.getElementById('hike').innerHTML = hike;
+    }
+    xmlh.send();
+
+    xmlr.open("GET", url + "Run" + route, true);
+    xmlr.onload = function () {
+      run = JSON.stringify(xmlr.responseText);
+      document.getElementById('run').innerHTML = run;
+    }
+    xmlr.send();
+
+    xmlrt.open("GET", url + "Rating1to10" + route, true);
+    xmlrt.onload = function () {
+      rating = JSON.stringify(xmlrt.responseText);
+      document.getElementById('rating').innerHTML = rating;
+    }
+    xmlrt.send();
+
+    xmld.open("GET", url + "Direction" + route, true);
+    xmld.onload = function () {
+      direction = JSON.stringify(xmld.responseText);
+      document.getElementById('direction').innerHTML = direction;
+    }
+    xmld.send();
+
+    xmlwa.open("GET", url + "WinterAccessible" + route, true);
+    xmlwa.onload = function () {
+      winter = JSON.stringify(xmlwa.responseText);
+      document.getElementById('winter').innerHTML = winter;
+    }
+    xmlwa.send();
+
+    xmls.open("GET", url + "StartingPoint" + route, true);
+    xmls.onload = function () {
+      start = JSON.stringify(xmls.responseText);
+      document.getElementById('start').innerHTML = start;
+    }
+    xmls.send();
+
+    xmldf.open("GET", url + "Difficulty" + route, true);
+    xmldf.onload = function () {
+      diff = JSON.stringify(xmldf.responseText);
+      document.getElementById('diff').innerHTML = diff;
+    }
+    xmldf.send();
+
+    xmlw.open("GET", url + "Water" + route, true);
+    xmlw.onload = function () {
+      water = JSON.stringify(xmlw.responseText);
+      document.getElementById('water').innerHTML = water;
+    }
+    xmlw.send();
+
+    xmlwv.open("GET", url + "WideViews" + route, true);
+    xmlwv.onload = function () {
+      views = JSON.stringify(xmlwv.responseText);
+      document.getElementById('views').innerHTML = views;
+    }
+    xmlwv.send();
+
+    xmlm.open("GET", url + "Maps" + route, true);
+    xmlm.onload = function () {
+      tmap = JSON.parse(xmlm.responseText);
+    }
+    xmlm.send();
+
+    $( "p" ).add( "div" ).addClass( "widget" );
+    var pdiv = $( "p" ).add( "div" );
+    var map = L.map('map').setView([36.21385, -81.6785], 13);
+
+    var tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+      maxZoom: 18,
+      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
+        'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        id: 'mapbox/streets-v11',
+        tileSize: 512,
+        zoomOffset: -1
+    }).addTo(map);
+
+    L.geoJSON(tmap).addTo(map);
+
+  </script>
+  <h1>Route is <span id="name"></span></h1>
+  <h1>Distance is <span id="distance"></span></h1>
+  <h1>Can you hike?  <span id="hike"></span></h1>
+  <h1>Can you run?  <span id="run"></span></h1>
+  <h1>Rating is <span id="rating"></span></h1>
+  <h1>Direction is <span id="direction"></span></h1>
+  <h1>Is it winter accessible?  <span id="winter"></span></h1>
+  <h1>Starting Point is <span id="start"></span></h1>
+  <h1>Difficulty is <span id="diff"></span></h1>
+  <h1>Is there water?  <span id="water"></span></h1>
+  <h1>Are there good views?  <span id="views"></span></h1>
   </body>
 </html>

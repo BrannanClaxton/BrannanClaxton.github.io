@@ -1,21 +1,143 @@
 <!DOCTYPE html>
 <html>
   <head>
-  <title>Rich Mountain Hike</title>
+  <title>Boone Fork Hike & Run</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
   crossorigin=""/>
   <link rel="stylesheet" href="design.css"/>
+  <script type="text/javascript" language="javascript"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
    crossorigin=""></script>
+   <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
   </head>
   <body>
     <img src = "pics/app-state-block-a-logo-600px.png" class = "app" alt = "App Logo">
-    <img src = "pics/boonetrekks.png" class = "logo" alt = "Logo">
+    <a href = "index.html">
+      <img src = "pics/boonetrekks.png" class = "logo" alt = "Logo">
+    </a>
     <div id = "map" style="width: 1100px; height: 600px;"></div>
       <script>
-      var map = L.map('map').setView([36.145180, -81.739234], 15);
+      var route = "/boonefork";
+      var url = "http://localhost:5984/routes/_design/Design/_show/";
+
+      var name;
+      var distance;
+      var hike;
+      var run;
+      var rating;
+      var direction;
+      var winterAccessible;
+      var start;
+      var difficulty;
+      var water;
+      var wideViews;
+      var tmap;
+
+      var xmln = new XMLHttpRequest();
+      var xmldm = new XMLHttpRequest();
+      var xmlh = new XMLHttpRequest();
+      var xmlr = new XMLHttpRequest();
+      var xmlrt = new XMLHttpRequest();
+      var xmld = new XMLHttpRequest();
+      var xmlwa = new XMLHttpRequest();
+      var xmls = new XMLHttpRequest();
+      var xmldf = new XMLHttpRequest();
+      var xmlw = new XMLHttpRequest();
+      var xmlwv = new XMLHttpRequest();
+      var xmlm = new XMLHttpRequest();
+
+      xmln.open("GET", url + "RouteName" + route, true);
+      xmln.onload = function () {
+        name = JSON.stringify(xmln.responseText);
+        document.getElementById('name').innerHTML = name;
+      }
+      xmln.send();
+
+      xmldm.open("GET", url + "DistanceMiles" + route, true);
+      xmldm.onload = function () {
+        distance = JSON.stringify(xmldm.responseText);
+        document.getElementById('distance').innerHTML = distance;
+      }
+      xmldm.send();
+
+      xmlh.open("GET", url + "Hike" + route, true);
+      xmlh.onload = function () {
+        hike = JSON.stringify(xmlh.responseText);
+        document.getElementById('hike').innerHTML = hike;
+      }
+      xmlh.send();
+
+      xmlr.open("GET", url + "Run" + route, true);
+      xmlr.onload = function () {
+        run = JSON.stringify(xmlr.responseText);
+        document.getElementById('run').innerHTML = run;
+      }
+      xmlr.send();
+
+      xmlrt.open("GET", url + "Rating1to10" + route, true);
+      xmlrt.onload = function () {
+        rating = JSON.stringify(xmlrt.responseText);
+        document.getElementById('rating').innerHTML = rating;
+      }
+      xmlrt.send();
+
+      xmld.open("GET", url + "Direction" + route, true);
+      xmld.onload = function () {
+        direction = JSON.stringify(xmld.responseText);
+        document.getElementById('direction').innerHTML = direction;
+      }
+      xmld.send();
+
+      xmlwa.open("GET", url + "WinterAccessible" + route, true);
+      xmlwa.onload = function () {
+        winter = JSON.stringify(xmlwa.responseText);
+        document.getElementById('winter').innerHTML = winter;
+      }
+      xmlwa.send();
+
+      xmls.open("GET", url + "StartingPoint" + route, true);
+      xmls.onload = function () {
+        start = JSON.stringify(xmls.responseText);
+        document.getElementById('start').innerHTML = start;
+      }
+      xmls.send();
+
+      xmldf.open("GET", url + "Difficulty" + route, true);
+      xmldf.onload = function () {
+        diff = JSON.stringify(xmldf.responseText);
+        document.getElementById('diff').innerHTML = diff;
+      }
+      xmldf.send();
+
+      xmlw.open("GET", url + "Water" + route, true);
+      xmlw.onload = function () {
+        water = JSON.stringify(xmlw.responseText);
+        document.getElementById('water').innerHTML = water;
+      }
+      xmlw.send();
+
+      xmlwv.open("GET", url + "WideViews" + route, true);
+      xmlwv.onload = function () {
+        views = JSON.stringify(xmlwv.responseText);
+        document.getElementById('views').innerHTML = views;
+      }
+      xmlwv.send();
+
+      xmlm.open("GET", url + "Maps" + route, true);
+      xmlm.onload = function () {
+        tmap = JSON.parse(xmlm.responseText);
+      }
+      xmlm.send();
+
+      $( "p" ).add( "div" ).addClass( "widget" );
+      var pdiv = $( "p" ).add( "div" );
+      var map = L.map('map').setView([36.139663, -81.727387], 14);
 
       var tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
         maxZoom: 18,
@@ -25,13 +147,25 @@
           tileSize: 512,
           zoomOffset: -1
       }).addTo(map);
-      var boonefork = {"type":"FeatureCollection","features":[{"type":"Feature","properties":{},"geometry":{"type":"MultiLineString","coordinates":[[[-81.72751357,36.13956599],[-81.7281049,36.13990608],[-81.72851041,36.14085744],[-81.72864864,36.14155675],[-81.7287832,36.1428001],[-81.72934159,36.14326657],[-81.73030524,36.14368149],[-81.73135897,36.14407835],[-81.7320568,36.14458308],[-81.73249848,36.145087],[-81.73237663,36.14548889],[-81.73172302,36.14560607],[-81.73131783,36.14614953],[-81.73191375,36.14673176],[-81.73175513,36.14795666],[-81.73229245,36.14845711],[-81.73304879,36.14892824],[-81.73367228,36.14950236],[-81.73440762,36.14972139],[-81.73450291,36.15058302],[-81.73352411,36.15093121],[-81.7335276,36.15208243],[-81.73437961,36.1531736],[-81.73470817,36.15385874],[-81.7356708,36.15386099],[-81.73616508,36.15419268],[-81.73659804,36.15447247],[-81.7359842,36.15464229],[-81.73585264,36.15472349],[-81.73526391,36.15490041],[-81.73521941,36.15475668],[-81.73519519,36.15479523],[-81.7351438,36.15482419],[-81.73469736,36.15475595],[-81.73455182,36.15461021],[-81.7346604,36.1544905],[-81.73460549,36.15462649],[-81.73481461,36.1550788],[-81.73480947,36.1549651],[-81.73514895,36.15447514],[-81.73492479,36.15462979],[-81.73485852,36.15470169],[-81.73536538,36.15456116],[-81.73541446,36.1545788],[-81.73608215,36.1547249],[-81.73652258,36.15467982],[-81.73744823,36.15468084],[-81.73847508,36.15486576],[-81.73910151,36.15475081],[-81.73950916,36.15417992],[-81.73958529,36.15388699],[-81.73957875,36.15435989],[-81.74018202,36.15404786],[-81.74070357,36.15368293],[-81.74144621,36.15342592],[-81.74188773,36.15305748],[-81.7422925,36.15283122],[-81.74322552,36.15314551],[-81.7437488,36.15344461],[-81.74328249,36.15368911],[-81.7432116,36.15426122],[-81.74363279,36.15497895],[-81.74435794,36.15534227],[-81.74561201,36.15511848],[-81.74593342,36.15464287],[-81.74608327,36.15436416],[-81.74650176,36.1537854],[-81.74650988,36.15326756],[-81.7469489,36.15310213],[-81.74704834,36.15281442],[-81.74709427,36.15302892],[-81.74741699,36.15276215],[-81.74813073,36.15259476],[-81.74890382,36.15209226],[-81.74955079,36.15179895],[-81.7500688,36.15151219],[-81.75068678,36.15122249],[-81.75131228,36.15094942],[-81.75114012,36.15072227],[-81.75134023,36.15035429],[-81.75092164,36.14986844],[-81.75124986,36.1492141],[-81.75091003,36.14873336],[-81.75041315,36.14772798],[-81.75021064,36.14743114],[-81.75011115,36.14709524],[-81.75040979,36.1466742],[-81.75090229,36.14603233],[-81.75021333,36.14575725],[-81.74973082,36.14538455],[-81.74907603,36.14473037],[-81.74841338,36.14431714],[-81.74893125,36.14409527],[-81.74869328,36.14369844],[-81.74805,36.14321062],[-81.74733446,36.14279718],[-81.74634798,36.14248446],[-81.74622734,36.1420797],[-81.74510401,36.14123607],[-81.74381242,36.14129698],[-81.74254511,36.14153383],[-81.74157815,36.14131577],[-81.74089908,36.14047075],[-81.74003245,36.14025613],[-81.74013518,36.1395387],[-81.73936515,36.13881019],[-81.73825944,36.13822632],[-81.73722906,36.13841474],[-81.73663485,36.13912022],[-81.73568739,36.13954476],[-81.735058,36.13999721],[-81.73414351,36.14010739],[-81.73285799,36.14042912],[-81.73192906,36.14056894],[-81.73063343,36.1405778],[-81.73018874,36.13986451],[-81.72921902,36.13946725],[-81.72759527,36.1396186]]]}}]
+      var r = {"type":"FeatureCollection","features":[{"type":"Feature","properties":{},"geometry":{"type":"MultiLineString","coordinates":[[[-81.72751357,36.13956599],[-81.7281049,36.13990608],[-81.72851041,36.14085744],[-81.72864864,36.14155675],[-81.7287832,36.1428001],[-81.72934159,36.14326657],[-81.73030524,36.14368149],[-81.73135897,36.14407835],[-81.7320568,36.14458308],[-81.73249848,36.145087],[-81.73237663,36.14548889],[-81.73172302,36.14560607],[-81.73131783,36.14614953],[-81.73191375,36.14673176],[-81.73175513,36.14795666],[-81.73229245,36.14845711],[-81.73304879,36.14892824],[-81.73367228,36.14950236],[-81.73440762,36.14972139],[-81.73450291,36.15058302],[-81.73352411,36.15093121],[-81.7335276,36.15208243],[-81.73437961,36.1531736],[-81.73470817,36.15385874],[-81.7356708,36.15386099],[-81.73616508,36.15419268],[-81.73659804,36.15447247],[-81.7359842,36.15464229],[-81.73585264,36.15472349],[-81.73526391,36.15490041],[-81.73521941,36.15475668],[-81.73519519,36.15479523],[-81.7351438,36.15482419],[-81.73469736,36.15475595],[-81.73455182,36.15461021],[-81.7346604,36.1544905],[-81.73460549,36.15462649],[-81.73481461,36.1550788],[-81.73480947,36.1549651],[-81.73514895,36.15447514],[-81.73492479,36.15462979],[-81.73485852,36.15470169],[-81.73536538,36.15456116],[-81.73541446,36.1545788],[-81.73608215,36.1547249],[-81.73652258,36.15467982],[-81.73744823,36.15468084],[-81.73847508,36.15486576],[-81.73910151,36.15475081],[-81.73950916,36.15417992],[-81.73958529,36.15388699],[-81.73957875,36.15435989],[-81.74018202,36.15404786],[-81.74070357,36.15368293],[-81.74144621,36.15342592],[-81.74188773,36.15305748],[-81.7422925,36.15283122],[-81.74322552,36.15314551],[-81.7437488,36.15344461],[-81.74328249,36.15368911],[-81.7432116,36.15426122],[-81.74363279,36.15497895],[-81.74435794,36.15534227],[-81.74561201,36.15511848],[-81.74593342,36.15464287],[-81.74608327,36.15436416],[-81.74650176,36.1537854],[-81.74650988,36.15326756],[-81.7469489,36.15310213],[-81.74704834,36.15281442],[-81.74709427,36.15302892],[-81.74741699,36.15276215],[-81.74813073,36.15259476],[-81.74890382,36.15209226],[-81.74955079,36.15179895],[-81.7500688,36.15151219],[-81.75068678,36.15122249],[-81.75131228,36.15094942],[-81.75114012,36.15072227],[-81.75134023,36.15035429],[-81.75092164,36.14986844],[-81.75124986,36.1492141],[-81.75091003,36.14873336],[-81.75041315,36.14772798],[-81.75021064,36.14743114],[-81.75011115,36.14709524],[-81.75040979,36.1466742],[-81.75090229,36.14603233],[-81.75021333,36.14575725],[-81.74973082,36.14538455],[-81.74907603,36.14473037],[-81.74841338,36.14431714],[-81.74893125,36.14409527],[-81.74869328,36.14369844],[-81.74805,36.14321062],[-81.74733446,36.14279718],[-81.74634798,36.14248446],[-81.74622734,36.1420797],[-81.74510401,36.14123607],[-81.74381242,36.14129698],[-81.74254511,36.14153383],[-81.74157815,36.14131577],[-81.74089908,36.14047075],[-81.74003245,36.14025613],[-81.74013518,36.1395387],[-81.73936515,36.13881019],[-81.73825944,36.13822632],[-81.73722906,36.13841474],[-81.73663485,36.13912022],[-81.73568739,36.13954476],[-81.735058,36.13999721],[-81.73414351,36.14010739],[-81.73285799,36.14042912],[-81.73192906,36.14056894],[-81.73063343,36.1405778],[-81.73018874,36.13986451],[-81.72921902,36.13946725],[-81.72759527,36.1396186]]]}}]
     };
-      L.geoJSON(boonefork).addTo(map);
+      L.geoJSON(r).addTo(map);
       </script>
-      <a href = "index.html">Home</a>
+    <div class = "data">
+      <h1>Route is <span id="name"></span></h1>
+      <h1>Distance is <span id="distance"></span></h1>
+      <h1>Can you hike?  <span id="hike"></span></h1>
+      <h1>Can you run?  <span id="run"></span></h1>
+      <h1>Rating is <span id="rating"></span></h1>
+      <h1>Direction is <span id="direction"></span></h1>
+      <h1>Is it winter accessible?  <span id="winter"></span></h1>
+      <h1>Starting Point is <span id="start"></span></h1>
+      <h1>Difficulty is <span id="diff"></span></h1>
+      <h1>Is there water?  <span id="water"></span></h1>
+      <h1>Are there good views?  <span id="views"></span></h1>
+    </div>
+
       <div class = "blurb">
-        <h1>Boone Fork</h1>
         <h3>
           The Boone Fork trail is one of the most popular trails in Boone and, arguably, all of WNC.  It is located off the Blue Ridge Parkway near Blowing Rock, and
           is a 5.2 mile loop trail.  While this hike does not go to the top of a mountain or have sweeping, wide views, it is one of the most diverse and feature rich hikes in the
@@ -48,6 +182,5 @@ Though most users are hikers, a few runners use the trail as well, as it is wide
 and running it is moderate compared to other routes.
         </h3>
       </div>
-      <a href = "http://localhost:5984/routes/_design/Design/_show/All/boonefork">Database</a>
   </body>
 </html>

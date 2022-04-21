@@ -1,21 +1,143 @@
 <!DOCTYPE html>
 <html>
   <head>
-  <title>Green Knob Hike/Run</title>
+  <title>Green Knob Hike & Run</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
   crossorigin=""/>
   <link rel="stylesheet" href="design.css"/>
+  <script type="text/javascript" language="javascript"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
    crossorigin=""></script>
+   <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
   </head>
   <body>
     <img src = "pics/app-state-block-a-logo-600px.png" class = "app" alt = "App Logo">
-    <img src = "pics/boonetrekks.png" class = "logo" alt = "Logo">
+    <a href = "index.html">
+      <img src = "pics/boonetrekks.png" class = "logo" alt = "Logo">
+    </a>
     <div id = "map" style="width: 1100px; height: 600px;"></div>
       <script>
-      var map = L.map('map').setView([36.146205, -81.715440], 16);
+      var route = "/greenknob";
+      var url = "http://localhost:5984/routes/_design/Design/_show/";
+
+      var name;
+      var distance;
+      var hike;
+      var run;
+      var rating;
+      var direction;
+      var winterAccessible;
+      var start;
+      var difficulty;
+      var water;
+      var wideViews;
+      var tmap;
+
+      var xmln = new XMLHttpRequest();
+      var xmldm = new XMLHttpRequest();
+      var xmlh = new XMLHttpRequest();
+      var xmlr = new XMLHttpRequest();
+      var xmlrt = new XMLHttpRequest();
+      var xmld = new XMLHttpRequest();
+      var xmlwa = new XMLHttpRequest();
+      var xmls = new XMLHttpRequest();
+      var xmldf = new XMLHttpRequest();
+      var xmlw = new XMLHttpRequest();
+      var xmlwv = new XMLHttpRequest();
+      var xmlm = new XMLHttpRequest();
+
+      xmln.open("GET", url + "RouteName" + route, true);
+      xmln.onload = function () {
+        name = JSON.stringify(xmln.responseText);
+        document.getElementById('name').innerHTML = name;
+      }
+      xmln.send();
+
+      xmldm.open("GET", url + "DistanceMiles" + route, true);
+      xmldm.onload = function () {
+        distance = JSON.stringify(xmldm.responseText);
+        document.getElementById('distance').innerHTML = distance;
+      }
+      xmldm.send();
+
+      xmlh.open("GET", url + "Hike" + route, true);
+      xmlh.onload = function () {
+        hike = JSON.stringify(xmlh.responseText);
+        document.getElementById('hike').innerHTML = hike;
+      }
+      xmlh.send();
+
+      xmlr.open("GET", url + "Run" + route, true);
+      xmlr.onload = function () {
+        run = JSON.stringify(xmlr.responseText);
+        document.getElementById('run').innerHTML = run;
+      }
+      xmlr.send();
+
+      xmlrt.open("GET", url + "Rating1to10" + route, true);
+      xmlrt.onload = function () {
+        rating = JSON.stringify(xmlrt.responseText);
+        document.getElementById('rating').innerHTML = rating;
+      }
+      xmlrt.send();
+
+      xmld.open("GET", url + "Direction" + route, true);
+      xmld.onload = function () {
+        direction = JSON.stringify(xmld.responseText);
+        document.getElementById('direction').innerHTML = direction;
+      }
+      xmld.send();
+
+      xmlwa.open("GET", url + "WinterAccessible" + route, true);
+      xmlwa.onload = function () {
+        winter = JSON.stringify(xmlwa.responseText);
+        document.getElementById('winter').innerHTML = winter;
+      }
+      xmlwa.send();
+
+      xmls.open("GET", url + "StartingPoint" + route, true);
+      xmls.onload = function () {
+        start = JSON.stringify(xmls.responseText);
+        document.getElementById('start').innerHTML = start;
+      }
+      xmls.send();
+
+      xmldf.open("GET", url + "Difficulty" + route, true);
+      xmldf.onload = function () {
+        diff = JSON.stringify(xmldf.responseText);
+        document.getElementById('diff').innerHTML = diff;
+      }
+      xmldf.send();
+
+      xmlw.open("GET", url + "Water" + route, true);
+      xmlw.onload = function () {
+        water = JSON.stringify(xmlw.responseText);
+        document.getElementById('water').innerHTML = water;
+      }
+      xmlw.send();
+
+      xmlwv.open("GET", url + "WideViews" + route, true);
+      xmlwv.onload = function () {
+        views = JSON.stringify(xmlwv.responseText);
+        document.getElementById('views').innerHTML = views;
+      }
+      xmlwv.send();
+
+      xmlm.open("GET", url + "Maps" + route, true);
+      xmlm.onload = function () {
+        tmap = JSON.parse(xmlm.responseText);
+      }
+      xmlm.send();
+
+      $( "p" ).add( "div" ).addClass( "widget" );
+      var pdiv = $( "p" ).add( "div" );
+      var map = L.map('map').setView([36.142708, -81.719662], 15);
 
       var tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
         maxZoom: 18,
@@ -25,13 +147,27 @@
           tileSize: 512,
           zoomOffset: -1
       }).addTo(map);
-      var greenknob = {
-      "type":"FeatureCollection","features":[{"type":"Feature","properties":{"j":"dQd"},"geometry":{"type":"MultiLineString","coordinates":[
-      [[-81.71940416,36.14257757],[-81.71954084,36.14208921],[-81.71686409,36.14305266],[-81.71619439,36.14322985],[-81.71449702,36.14362771],[-81.71314944,36.14418889],[-81.71177862,36.14420631],[-81.7120237,36.14587253],[-81.71149476,36.14716917],[-81.7125083,36.14804978],[-81.71394271,36.14912454],[-81.71425414,36.15075121],[-81.71521778,36.15079927],[-81.7165023,36.14925982],[-81.71695581,36.14844468],[-81.7183316,36.14831958],[-81.71931815,36.14631445],[-81.72006502,36.14491946],[-81.72105396,36.14418889],[-81.72148978,36.14298541],[-81.72054031,36.14231848],[-81.71940416,36.14257757]]]}}]
-      };
-      L.geoJSON(greenknob).addTo(map);
+      var r = {"type":"FeatureCollection","features":[{"type":"Feature","properties":{"j":"dQd"},"geometry":{"type":"MultiLineString","coordinates":[[[-81.71940416,36.14257757],[-81.71954084,36.14208921],[-81.71686409,36.14305266],[-81.71619439,36.14322985],[-81.71449702,36.14362771],[-81.71314944,36.14418889],[-81.71177862,36.14420631],[-81.7120237,36.14587253],[-81.71149476,36.14716917],[-81.7125083,36.14804978],[-81.71394271,36.14912454],[-81.71425414,36.15075121],[-81.71521778,36.15079927],[-81.7165023,36.14925982],[-81.71695581,36.14844468],[-81.7183316,36.14831958],[-81.71931815,36.14631445],[-81.72006502,36.14491946],[-81.72105396,36.14418889],[-81.72148978,36.14298541],[-81.72054031,36.14231848],[-81.71940416,36.14257757]]]}}]};
+      L.geoJSON(r).addTo(map);
       </script>
-      <a href = "index.html">Home</a>
-      <a href = "http://localhost:5984/routes/_design/Design/_show/All/greenknob">Database</a>
+    <div class = "data">
+      <h1>Route is <span id="name"></span></h1>
+      <h1>Distance is <span id="distance"></span></h1>
+      <h1>Can you hike?  <span id="hike"></span></h1>
+      <h1>Can you run?  <span id="run"></span></h1>
+      <h1>Rating is <span id="rating"></span></h1>
+      <h1>Direction is <span id="direction"></span></h1>
+      <h1>Is it winter accessible?  <span id="winter"></span></h1>
+      <h1>Starting Point is <span id="start"></span></h1>
+      <h1>Difficulty is <span id="diff"></span></h1>
+      <h1>Is there water?  <span id="water"></span></h1>
+      <h1>Are there good views?  <span id="views"></span></h1>
+    </div>
+
+      <div class = "blurb">
+        <h3>
+          -blurb here-
+        </h3>
+      </div>
   </body>
 </html>

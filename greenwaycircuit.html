@@ -6,16 +6,138 @@
   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
   crossorigin=""/>
   <link rel="stylesheet" href="design.css"/>
+  <script type="text/javascript" language="javascript"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
    crossorigin=""></script>
+   <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
   </head>
   <body>
     <img src = "pics/app-state-block-a-logo-600px.png" class = "app" alt = "App Logo">
-    <img src = "pics/boonetrekks.png" class = "logo" alt = "Logo">
+    <a href = "index.html">
+      <img src = "pics/boonetrekks.png" class = "logo" alt = "Logo">
+    </a>
     <div id = "map" style="width: 1100px; height: 600px;"></div>
       <script>
-      var map = L.map('map').setView([36.209001, -81.653156], 15);
+      var route = "/greenwaycircuit";
+      var url = "http://localhost:5984/routes/_design/Design/_show/";
+
+      var name;
+      var distance;
+      var hike;
+      var run;
+      var rating;
+      var direction;
+      var winterAccessible;
+      var start;
+      var difficulty;
+      var water;
+      var wideViews;
+      var tmap;
+
+      var xmln = new XMLHttpRequest();
+      var xmldm = new XMLHttpRequest();
+      var xmlh = new XMLHttpRequest();
+      var xmlr = new XMLHttpRequest();
+      var xmlrt = new XMLHttpRequest();
+      var xmld = new XMLHttpRequest();
+      var xmlwa = new XMLHttpRequest();
+      var xmls = new XMLHttpRequest();
+      var xmldf = new XMLHttpRequest();
+      var xmlw = new XMLHttpRequest();
+      var xmlwv = new XMLHttpRequest();
+      var xmlm = new XMLHttpRequest();
+
+      xmln.open("GET", url + "RouteName" + route, true);
+      xmln.onload = function () {
+        name = JSON.stringify(xmln.responseText);
+        document.getElementById('name').innerHTML = name;
+      }
+      xmln.send();
+
+      xmldm.open("GET", url + "DistanceMiles" + route, true);
+      xmldm.onload = function () {
+        distance = JSON.stringify(xmldm.responseText);
+        document.getElementById('distance').innerHTML = distance;
+      }
+      xmldm.send();
+
+      xmlh.open("GET", url + "Hike" + route, true);
+      xmlh.onload = function () {
+        hike = JSON.stringify(xmlh.responseText);
+        document.getElementById('hike').innerHTML = hike;
+      }
+      xmlh.send();
+
+      xmlr.open("GET", url + "Run" + route, true);
+      xmlr.onload = function () {
+        run = JSON.stringify(xmlr.responseText);
+        document.getElementById('run').innerHTML = run;
+      }
+      xmlr.send();
+
+      xmlrt.open("GET", url + "Rating1to10" + route, true);
+      xmlrt.onload = function () {
+        rating = JSON.stringify(xmlrt.responseText);
+        document.getElementById('rating').innerHTML = rating;
+      }
+      xmlrt.send();
+
+      xmld.open("GET", url + "Direction" + route, true);
+      xmld.onload = function () {
+        direction = JSON.stringify(xmld.responseText);
+        document.getElementById('direction').innerHTML = direction;
+      }
+      xmld.send();
+
+      xmlwa.open("GET", url + "WinterAccessible" + route, true);
+      xmlwa.onload = function () {
+        winter = JSON.stringify(xmlwa.responseText);
+        document.getElementById('winter').innerHTML = winter;
+      }
+      xmlwa.send();
+
+      xmls.open("GET", url + "StartingPoint" + route, true);
+      xmls.onload = function () {
+        start = JSON.stringify(xmls.responseText);
+        document.getElementById('start').innerHTML = start;
+      }
+      xmls.send();
+
+      xmldf.open("GET", url + "Difficulty" + route, true);
+      xmldf.onload = function () {
+        diff = JSON.stringify(xmldf.responseText);
+        document.getElementById('diff').innerHTML = diff;
+      }
+      xmldf.send();
+
+      xmlw.open("GET", url + "Water" + route, true);
+      xmlw.onload = function () {
+        water = JSON.stringify(xmlw.responseText);
+        document.getElementById('water').innerHTML = water;
+      }
+      xmlw.send();
+
+      xmlwv.open("GET", url + "WideViews" + route, true);
+      xmlwv.onload = function () {
+        views = JSON.stringify(xmlwv.responseText);
+        document.getElementById('views').innerHTML = views;
+      }
+      xmlwv.send();
+
+      xmlm.open("GET", url + "Maps" + route, true);
+      xmlm.onload = function () {
+        tmap = JSON.parse(xmlm.responseText);
+      }
+      xmlm.send();
+
+      $( "p" ).add( "div" ).addClass( "widget" );
+      var pdiv = $( "p" ).add( "div" );
+      var map = L.map('map').setView([36.21387118, -81.65824505], 15);
 
       var tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
         maxZoom: 18,
@@ -25,10 +147,27 @@
           tileSize: 512,
           zoomOffset: -1
       }).addTo(map);
-      var greenwaycircuit = {"type":"FeatureCollection","features":[{"type":"Feature","properties":{"time":"2022-04-07T00:27:13.000Z"},"geometry":{"type":"LineString","coordinates":[[-81.65824505,36.21387118,974.3106689453125],[-81.65642157,36.21331372,979.180908203125],[-81.65506132,36.21263164,945.0972900390625],[-81.65314572,36.21180389,947.526123046875],[-81.65109846,36.21089945,942.9931640625],[-81.64850798,36.20961302,973.32275390625],[-81.6468349,36.20877378,935.248291015625],[-81.64693128,36.21075486,912.467529296875],[-81.64855333,36.21183043,906.02978515625],[-81.65079125,36.21375628,906.0582275390625],[-81.65216313,36.21503074,915.55029296875],[-81.65254193,36.21641379,944.5684814453125],[-81.65264469,36.21531344,911.099853515625],[-81.65047455,36.21315192,911.39794921875],[-81.64903045,36.2120315,913.34619140625],[-81.6475148,36.2113367,915.448486328125],[-81.64668822,36.21062699,919.1959228515625],[-81.6460538,36.21037625,905.730224609375],[-81.64638617,36.21191576,872.48779296875],[-81.64737721,36.21313088,917.19140625],[-81.6459566,36.2148805,916.5],[-81.64449368,36.21492311,905.7802734375],[-81.6459692,36.214913,916.5],[-81.64738496,36.21353968,895.3377685546875],[-81.6468924,36.21226058,879.045166015625],[-81.64655615,36.20961755,910.4483642578125],[-81.64722956,36.20868157,916.726318359375],[-81.64909598,36.20903018,878.681396484375],[-81.6502195,36.2096548,908.3560791015625],[-81.65093547,36.20990739,954.44677734375],[-81.65325057,36.21105176,887.3651123046875],[-81.65506253,36.21079372,906.30615234375],[-81.65490402,36.20922476,885.41552734375],[-81.65366476,36.20834277,915.033935546875],[-81.65260467,36.20627994,916.1041259765625],[-81.65135833,36.20512603,909.474609375],[-81.65000246,36.20561871,904.9869384765625],[-81.65099722,36.20710435,913.5247802734375],[-81.65246261,36.20808143,909.6064453125],[-81.65423462,36.20799002,1024.4189453125],[-81.65543747,36.20828529,910.823486328125],[-81.65663014,36.20933617,892.640869140625],[-81.65742249,36.21067912,918.562744140625],[-81.65665484,36.21217853,923.0406494140625],[-81.65788285,36.21334201,933.7091064453125],[-81.65652494,36.21316569,905.6082763671875],[-81.65646962,36.21347992,963.129150390625],[-81.65826053,36.21396366,996.6588134765625],[-81.6594454,36.2144358,978.7000122070312],[-81.6603717,36.2148118,974.6000366210938]]}}]}
-      L.geoJSON(greenwaycircuit).addTo(map);
+      var r = {"type":"FeatureCollection","features":[{"type":"Feature","properties":{"time":"2022-04-07T00:27:13.000Z"},"geometry":{"type":"LineString","coordinates":[[-81.65824505,36.21387118,974.3106689453125],[-81.65642157,36.21331372,979.180908203125],[-81.65506132,36.21263164,945.0972900390625],[-81.65314572,36.21180389,947.526123046875],[-81.65109846,36.21089945,942.9931640625],[-81.64850798,36.20961302,973.32275390625],[-81.6468349,36.20877378,935.248291015625],[-81.64693128,36.21075486,912.467529296875],[-81.64855333,36.21183043,906.02978515625],[-81.65079125,36.21375628,906.0582275390625],[-81.65216313,36.21503074,915.55029296875],[-81.65254193,36.21641379,944.5684814453125],[-81.65264469,36.21531344,911.099853515625],[-81.65047455,36.21315192,911.39794921875],[-81.64903045,36.2120315,913.34619140625],[-81.6475148,36.2113367,915.448486328125],[-81.64668822,36.21062699,919.1959228515625],[-81.6460538,36.21037625,905.730224609375],[-81.64638617,36.21191576,872.48779296875],[-81.64737721,36.21313088,917.19140625],[-81.6459566,36.2148805,916.5],[-81.64449368,36.21492311,905.7802734375],[-81.6459692,36.214913,916.5],[-81.64738496,36.21353968,895.3377685546875],[-81.6468924,36.21226058,879.045166015625],[-81.64655615,36.20961755,910.4483642578125],[-81.64722956,36.20868157,916.726318359375],[-81.64909598,36.20903018,878.681396484375],[-81.6502195,36.2096548,908.3560791015625],[-81.65093547,36.20990739,954.44677734375],[-81.65325057,36.21105176,887.3651123046875],[-81.65506253,36.21079372,906.30615234375],[-81.65490402,36.20922476,885.41552734375],[-81.65366476,36.20834277,915.033935546875],[-81.65260467,36.20627994,916.1041259765625],[-81.65135833,36.20512603,909.474609375],[-81.65000246,36.20561871,904.9869384765625],[-81.65099722,36.20710435,913.5247802734375],[-81.65246261,36.20808143,909.6064453125],[-81.65423462,36.20799002,1024.4189453125],[-81.65543747,36.20828529,910.823486328125],[-81.65663014,36.20933617,892.640869140625],[-81.65742249,36.21067912,918.562744140625],[-81.65665484,36.21217853,923.0406494140625],[-81.65788285,36.21334201,933.7091064453125],[-81.65652494,36.21316569,905.6082763671875],[-81.65646962,36.21347992,963.129150390625],[-81.65826053,36.21396366,996.6588134765625],[-81.6594454,36.2144358,978.7000122070312],[-81.6603717,36.2148118,974.6000366210938]]}}]};
+      L.geoJSON(r).addTo(map);
       </script>
-      <a href = "index.html">Home</a>
-      <a href = "http://localhost:5984/routes/_design/Design/_show/All/greenwaycircuit">Database</a>
+    <div class = "data">
+      <h1>Route is <span id="name"></span></h1>
+      <h1>Distance is <span id="distance"></span></h1>
+      <h1>Can you hike?  <span id="hike"></span></h1>
+      <h1>Can you run?  <span id="run"></span></h1>
+      <h1>Rating is <span id="rating"></span></h1>
+      <h1>Direction is <span id="direction"></span></h1>
+      <h1>Is it winter accessible?  <span id="winter"></span></h1>
+      <h1>Starting Point is <span id="start"></span></h1>
+      <h1>Difficulty is <span id="diff"></span></h1>
+      <h1>Is there water?  <span id="water"></span></h1>
+      <h1>Are there good views?  <span id="views"></span></h1>
+    </div>
+
+      <div class = "blurb">
+        <h3>
+          -blurb here-
+        </h3>
+      </div>
   </body>
 </html>

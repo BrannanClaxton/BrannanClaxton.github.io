@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title>Grandfather Mountain Hike</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+  integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+  crossorigin=""/>
+  <link rel="stylesheet" href="design.css"/>
+  <script type="text/javascript" language="javascript"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+   crossorigin=""></script>
+   <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <img src = "pics/app-state-block-a-logo-600px.png" class = "app" alt = "App Logo">
+    <a href = "index.html">
+      <img src = "pics/boonetrekks.png" class = "logo" alt = "Logo">
+    </a>
+    <div id = "map" style="width: 1100px; height: 600px;"></div>
+      <script>
+      var route = "/grandfather";
+      var url = "http://localhost:5984/routes/_design/Design/_show/";
+
+      var name;
+      var distance;
+      var hike;
+      var run;
+      var rating;
+      var direction;
+      var winterAccessible;
+      var start;
+      var difficulty;
+      var water;
+      var wideViews;
+      var tmap;
+
+      var xmln = new XMLHttpRequest();
+      var xmldm = new XMLHttpRequest();
+      var xmlh = new XMLHttpRequest();
+      var xmlr = new XMLHttpRequest();
+      var xmlrt = new XMLHttpRequest();
+      var xmld = new XMLHttpRequest();
+      var xmlwa = new XMLHttpRequest();
+      var xmls = new XMLHttpRequest();
+      var xmldf = new XMLHttpRequest();
+      var xmlw = new XMLHttpRequest();
+      var xmlwv = new XMLHttpRequest();
+      var xmlm = new XMLHttpRequest();
+
+      xmln.open("GET", url + "RouteName" + route, true);
+      xmln.onload = function () {
+        name = JSON.stringify(xmln.responseText);
+        document.getElementById('name').innerHTML = name;
+      }
+      xmln.send();
+
+      xmldm.open("GET", url + "DistanceMiles" + route, true);
+      xmldm.onload = function () {
+        distance = JSON.stringify(xmldm.responseText);
+        document.getElementById('distance').innerHTML = distance;
+      }
+      xmldm.send();
+
+      xmlh.open("GET", url + "Hike" + route, true);
+      xmlh.onload = function () {
+        hike = JSON.stringify(xmlh.responseText);
+        document.getElementById('hike').innerHTML = hike;
+      }
+      xmlh.send();
+
+      xmlr.open("GET", url + "Run" + route, true);
+      xmlr.onload = function () {
+        run = JSON.stringify(xmlr.responseText);
+        document.getElementById('run').innerHTML = run;
+      }
+      xmlr.send();
+
+      xmlrt.open("GET", url + "Rating1to10" + route, true);
+      xmlrt.onload = function () {
+        rating = JSON.stringify(xmlrt.responseText);
+        document.getElementById('rating').innerHTML = rating;
+      }
+      xmlrt.send();
+
+      xmld.open("GET", url + "Direction" + route, true);
+      xmld.onload = function () {
+        direction = JSON.stringify(xmld.responseText);
+        document.getElementById('direction').innerHTML = direction;
+      }
+      xmld.send();
+
+      xmlwa.open("GET", url + "WinterAccessible" + route, true);
+      xmlwa.onload = function () {
+        winter = JSON.stringify(xmlwa.responseText);
+        document.getElementById('winter').innerHTML = winter;
+      }
+      xmlwa.send();
+
+      xmls.open("GET", url + "StartingPoint" + route, true);
+      xmls.onload = function () {
+        start = JSON.stringify(xmls.responseText);
+        document.getElementById('start').innerHTML = start;
+      }
+      xmls.send();
+
+      xmldf.open("GET", url + "Difficulty" + route, true);
+      xmldf.onload = function () {
+        diff = JSON.stringify(xmldf.responseText);
+        document.getElementById('diff').innerHTML = diff;
+      }
+      xmldf.send();
+
+      xmlw.open("GET", url + "Water" + route, true);
+      xmlw.onload = function () {
+        water = JSON.stringify(xmlw.responseText);
+        document.getElementById('water').innerHTML = water;
+      }
+      xmlw.send();
+
+      xmlwv.open("GET", url + "WideViews" + route, true);
+      xmlwv.onload = function () {
+        views = JSON.stringify(xmlwv.responseText);
+        document.getElementById('views').innerHTML = views;
+      }
+      xmlwv.send();
+
+      xmlm.open("GET", url + "Maps" + route, true);
+      xmlm.onload = function () {
+        tmap = JSON.parse(xmlm.responseText);
+      }
+      xmlm.send();
+
+      $( "p" ).add( "div" ).addClass( "widget" );
+      var pdiv = $( "p" ).add( "div" );
+      var map = L.map('map').setView([36.110517, -81.816655], 14);
+
+      var tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+        maxZoom: 18,
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
+          'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+          id: 'mapbox/streets-v11',
+          tileSize: 512,
+          zoomOffset: -1
+      }).addTo(map);
+      var r = {"type":"FeatureCollection","features":[{"type":"Feature","properties":{"time":"2022-04-30T16:13:52.000Z"},"geometry":{"type":"LineString","coordinates":[[-81.83263738,36.11901223,1198.3134765625],[-81.83178485,36.11857963,1200.376953125],[-81.83121948,36.11908638,1140.87060546875],[-81.8314261,36.11975091,1202.715087890625],[-81.83118011,36.1208524,1240.2227783203125],[-81.83039305,36.12078125,1154.8621826171875],[-81.82948205,36.12026114,1218.20556640625],[-81.82887505,36.12060778,1205.6094970703125],[-81.82775533,36.12132452,1156.355224609375],[-81.8266261,36.12140319,1212.237548828125],[-81.82620988,36.12134404,1182.1466064453125],[-81.82540295,36.12236715,1169.958251953125],[-81.82425151,36.12217169,1171.2203369140625],[-81.82381333,36.12267167,1167.599609375],[-81.82325285,36.12295961,1201.716064453125],[-81.82255557,36.12310628,1238.45361328125],[-81.8219151,36.12374632,1208.6832275390625],[-81.82132896,36.1232248,1200.84716796875],[-81.82088635,36.12283984,1193.935546875],[-81.82016092,36.12337333,1216.29541015625],[-81.81938431,36.12360055,1212.123779296875],[-81.81876074,36.12299332,1236.50341796875],[-81.81884891,36.12248881,1204.47021484375],[-81.8177795,36.12242144,1256.0799560546875],[-81.81825337,36.12227347,1273.9971923828125],[-81.81782085,36.12138847,1275.0679931640625],[-81.81889062,36.12143743,1240.3775634765625],[-81.81810785,36.12073692,1299.38623046875],[-81.81800678,36.12055033,1330.16796875],[-81.81775742,36.11970975,1293.3087158203125],[-81.81740961,36.11976621,1327.959228515625],[-81.81653394,36.11977169,1284.1602783203125],[-81.8161113,36.12028474,1382.71044921875],[-81.81554566,36.11956925,1396.9478759765625],[-81.81471405,36.11914013,1384.417236328125],[-81.81525915,36.11882715,1379.8509521484375],[-81.81470465,36.11832878,1472.1878662109375],[-81.81447759,36.11800445,1431.977294921875],[-81.81486167,36.11802558,1452.8016357421875],[-81.81515293,36.11735738,1463.9862060546875],[-81.8156789,36.11679785,1493.91943359375],[-81.81622098,36.11598434,1489.2425537109375],[-81.81607161,36.11520235,1481.8995361328125],[-81.81613767,36.11531776,1505.703369140625],[-81.81622862,36.11516081,1510.033935546875],[-81.81683232,36.114652,1529.8031005859375],[-81.81736176,36.11393135,1530.8839111328125],[-81.81774315,36.11344887,1559.7744140625],[-81.81787857,36.11295747,1517.4254150390625],[-81.81852016,36.11250316,1523.6121826171875],[-81.81855978,36.11237622,1529.2547607421875],[-81.81828264,36.11187664,1529.65771484375],[-81.81802387,36.11188069,1535.0123291015625],[-81.81803179,36.11129341,1594.25146484375],[-81.81726418,36.11133914,1577.78759765625],[-81.81715086,36.11112861,1608.46630859375],[-81.81699332,36.11076845,1547.977294921875],[-81.81695047,36.11040962,1638.923828125],[-81.81640056,36.11046073,1693.06982421875],[-81.81629617,36.11058532,1645.6904296875],[-81.81615573,36.11051916,1663.90869140625],[-81.81545667,36.11025577,1670.59521484375],[-81.81456645,36.11039602,1654.4677734375],[-81.81413831,36.10941618,1711.396240234375],[-81.81470208,36.10903579,1668.053955078125],[-81.81502358,36.10884065,1713.12109375],[-81.81567155,36.10881541,1707.9306640625],[-81.81566654,36.10863378,1693.7353515625],[-81.81553843,36.10889861,1678.249267578125],[-81.81566911,36.10840074,1692.83544921875],[-81.81615193,36.10795178,1708.78955078125],[-81.8162143,36.10776825,1716.04443359375],[-81.81627396,36.10755307,1711.5693359375],[-81.8169826,36.10677412,1765.6396484375],[-81.81709227,36.10601994,1750.77099609375],[-81.81731562,36.10562046,1713.093017578125],[-81.8179409,36.10568653,1733.260498046875],[-81.81815513,36.10525389,1741.261962890625],[-81.81834893,36.10516887,1754.87060546875],[-81.81919502,36.10439643,1730.86376953125],[-81.81924805,36.10413412,1745.7607421875],[-81.8196555,36.10370319,1721.891845703125],[-81.81976254,36.10351485,1728.60546875],[-81.82004071,36.10333118,1762.16845703125],[-81.82052768,36.1031897,1769.2421875],[-81.8207024,36.10320051,1759.931884765625],[-81.82137216,36.10280796,1914.479736328125],[-81.8211622,36.10291375,1810.58837890625],[-81.82100792,36.10305624,1720.4345703125],[-81.8208529,36.10312648,1684.49267578125],[-81.82096127,36.10306666,1703.4921875],[-81.82139011,36.1025096,1833.329345703125],[-81.82150269,36.10264896,1739.334228515625],[-81.8218825,36.10252108,1728.11767578125],[-81.82200936,36.10203596,1689.996337890625],[-81.82210303,36.10186492,1715.285400390625],[-81.8227499,36.10187401,1741.1103515625],[-81.82282216,36.10171191,1762.666748046875],[-81.8236257,36.10133153,1730.89404296875],[-81.82399968,36.10111415,1723.574462890625],[-81.82458681,36.10131248,1731.16650390625],[-81.82468155,36.10118418,1717.36181640625],[-81.82466664,36.10118859,1708.876953125],[-81.82490117,36.10118615,1665.28076171875],[-81.82454589,36.10121684,1602.67138671875],[-81.82522284,36.10099078,1680.1552734375],[-81.82574494,36.10099652,1687.513671875],[-81.8253758,36.10087244,1655.0869140625],[-81.82536524,36.10055797,1643.870361328125],[-81.82600297,36.10027304,1671.716796875],[-81.82630541,36.09987392,1570.422119140625],[-81.82660706,36.09988358,1565.1875],[-81.82667998,36.09950014,1590.03369140625],[-81.82687632,36.09893027,1545.2579345703125],[-81.82726107,36.09856438,1601.95654296875],[-81.82830516,36.09818837,1626.29541015625],[-81.8289084,36.09817573,1617.50048828125],[-81.82865066,36.09713744,1597.786865234375],[-81.83008461,36.09730613,1584.847900390625],[-81.83092025,36.0971415,1578.19384765625],[-81.83108244,36.09686879,1566.33203125],[-81.83173128,36.09668068,1566.52734375],[-81.83168871,36.09621393,1561.84912109375],[-81.83169576,36.09564101,1586.392578125],[-81.83199009,36.09506317,1601.662109375],[-81.83264623,36.0944375,1614.72021484375],[-81.83324195,36.09440507,1583.01611328125],[-81.83364914,36.09427523,1525.6190185546875],[-81.83339316,36.0943878,1608.07666015625],[-81.83328294,36.09443872,1619.82373046875],[-81.8335091,36.09437666,1582.43505859375],[-81.83308448,36.09441173,1562.707763671875],[-81.83251524,36.09460476,1565.77001953125],[-81.83224439,36.09496707,1570.3349609375],[-81.83207326,36.09548149,1555.78173828125],[-81.83186449,36.09584621,1575.40966796875],[-81.83176365,36.09643727,1551.75634765625],[-81.83185119,36.09661557,1590.197265625],[-81.83115155,36.09671496,1595.748046875],[-81.8309476,36.09701754,1600.17724609375],[-81.82990632,36.09729659,1622.65087890625],[-81.82892823,36.09761554,1593.7724609375],[-81.82850845,36.09800135,1626.76953125],[-81.82836932,36.09814753,1556.25537109375],[-81.82770532,36.09852574,1551.5361328125],[-81.82711299,36.09881189,1610.15380859375],[-81.82688239,36.09837745,1573.254638671875],[-81.82685082,36.09917504,1621.86279296875],[-81.82680015,36.09953815,1586.96630859375],[-81.8269237,36.0998688,1569.42578125],[-81.82651548,36.09988873,1593.369140625],[-81.82629943,36.09987311,1574.010498046875],[-81.82625101,36.09992315,1594.33984375],[-81.82552504,36.10062353,1632.42431640625],[-81.82542053,36.10058335,1646.9228515625],[-81.82538429,36.10055727,1644.25048828125],[-81.82540452,36.1005597,1646.7099609375],[-81.82544715,36.10058428,1645.655517578125],[-81.82560499,36.10054228,1664.8623046875],[-81.82556062,36.1005553,1661.322998046875],[-81.82556504,36.10056777,1660.349853515625],[-81.82557074,36.10056765,1659.164306640625],[-81.82556607,36.10056911,1658.73095703125],[-81.8253085,36.10051774,1638.25146484375],[-81.82568161,36.10060905,1670.453125],[-81.82559351,36.100597,1662.455322265625],[-81.82558474,36.10061687,1655.58154296875],[-81.82553158,36.10056599,1666.206787109375],[-81.82554984,36.10062008,1665.50048828125],[-81.82552535,36.10063558,1660.16259765625],[-81.82555924,36.10059308,1666.68310546875],[-81.82555716,36.10059195,1667.90576171875],[-81.82557291,36.10057685,1666.16552734375],[-81.82538131,36.1006734,1649.9453125],[-81.82555325,36.10073181,1658.282958984375],[-81.82556515,36.10072684,1657.833984375],[-81.82509001,36.10089562,1722.39892578125],[-81.82485953,36.10116304,1704.112548828125],[-81.82479208,36.10128071,1692.7314453125],[-81.82474869,36.1012506,1691.68994140625],[-81.82383476,36.10111082,1722.389404296875],[-81.82342678,36.10133215,1749.38427734375],[-81.8230965,36.10166782,1731.234375],[-81.82278146,36.10169326,1737.31298828125],[-81.82248267,36.10194495,1749.2822265625],[-81.82183919,36.10198438,1719.9072265625],[-81.82185324,36.10202386,1712.029541015625],[-81.82191167,36.10236518,1694.892578125],[-81.82136525,36.10246856,1680.292724609375],[-81.82123542,36.10288914,1685.865478515625],[-81.82127946,36.10294721,1696.6640625],[-81.82123494,36.10297352,1697.06640625],[-81.82120784,36.10296057,1710.34765625],[-81.82117692,36.10298275,1715.72314453125],[-81.8208594,36.10304463,1750.0380859375],[-81.82055077,36.10299301,1785.896484375],[-81.820642,36.10317919,1756.29443359375],[-81.82031959,36.10321641,1742.49560546875],[-81.82007365,36.10333993,1740.420654296875],[-81.81943813,36.10360954,1713.2509765625],[-81.81952123,36.1036742,1724.28125],[-81.81934686,36.10420052,1753.17626953125],[-81.81890014,36.1045553,1738.7373046875],[-81.81869177,36.10494354,1735.4765625],[-81.8184581,36.1053903,1705.189208984375],[-81.81808758,36.10566455,1705.92578125],[-81.81762031,36.10569029,1700.534912109375],[-81.81727085,36.10573911,1702.4130859375],[-81.81676313,36.10694374,1703.025390625],[-81.81686266,36.10724478,1730.6904296875],[-81.81646744,36.10750233,1720.44921875],[-81.81583978,36.10784026,1730.2177734375],[-81.81620185,36.107794,1706.903076171875],[-81.81576014,36.10835251,1701.9111328125],[-81.81525324,36.10886818,1634.54736328125],[-81.8146795,36.10916774,1667.610595703125],[-81.81456337,36.10917651,1705.302734375],[-81.81428304,36.10985378,1673.34130859375],[-81.81499626,36.11023589,1699.980712890625],[-81.81578129,36.11016735,1640.085693359375],[-81.81591417,36.11058713,1681.0048828125],[-81.81613375,36.11044736,1604.73583984375],[-81.81661996,36.11040719,1654.314453125],[-81.81690342,36.11062567,1563.536865234375],[-81.81728093,36.11110856,1636.80517578125],[-81.81812039,36.11131673,1617.82275390625],[-81.81834816,36.11165652,1549.97412109375],[-81.81862158,36.11252929,1526.5560302734375],[-81.81764002,36.11270591,1495.08251953125],[-81.81775704,36.1130042,1530.4705810546875],[-81.81707002,36.11392713,1492.5909423828125],[-81.81695557,36.1142438,1517.3656005859375],[-81.81647053,36.11477559,1492.16552734375],[-81.81591919,36.11502,1492.3787841796875],[-81.81594767,36.11528097,1435.6129150390625],[-81.81586461,36.11537369,1463.243408203125],[-81.81602285,36.11581477,1459.7896728515625],[-81.81538163,36.11680373,1439.8463134765625],[-81.81517082,36.11803931,1356.5704345703125],[-81.81481905,36.11808919,1422.1846923828125],[-81.81472104,36.11826848,1403.49658203125],[-81.81465941,36.11876527,1364.5555419921875],[-81.81459812,36.11884412,1380.28515625],[-81.81512738,36.11952448,1375.5166015625],[-81.81543524,36.11954263,1339.57080078125],[-81.81620456,36.1201268,1339.0145263671875],[-81.81688034,36.11971807,1353.890625],[-81.81713129,36.11951529,1292.0653076171875],[-81.8173533,36.12008718,1291.1671142578125],[-81.81786985,36.12016265,1288.8817138671875],[-81.81819592,36.12061024,1331.004150390625],[-81.81865496,36.12099236,1274.3402099609375],[-81.81860921,36.1212959,1267.3726806640625],[-81.81763003,36.12141158,1394.531005859375],[-81.81794549,36.12222455,1205.0086669921875],[-81.81808353,36.12241283,1231.6942138671875],[-81.81895529,36.12262907,1222.543212890625],[-81.81908599,36.12380463,1192.2813720703125],[-81.82023281,36.12340065,1200.8387451171875],[-81.82059525,36.12259775,1204.30322265625],[-81.82129609,36.12360092,1206.300048828125],[-81.82206997,36.12387228,1167.8763427734375],[-81.8225174,36.12298074,1195.2005615234375],[-81.82228461,36.12278206,1220.9967041015625],[-81.82335561,36.12318888,1186.6221923828125],[-81.82397056,36.12261372,1236.5975341796875],[-81.82441449,36.12240283,1199.008056640625],[-81.82483417,36.12237201,1187.55712890625],[-81.82552434,36.12212156,1193.916259765625],[-81.82584463,36.12146348,1202.9505615234375],[-81.82638642,36.1211904,1207.593505859375],[-81.82665556,36.1216362,1180.5908203125],[-81.82729311,36.12153241,1226.812744140625],[-81.82804244,36.12128168,1218.8765869140625],[-81.82908526,36.12070615,1189.1878662109375],[-81.82956312,36.12036115,1208.5894775390625],[-81.83095377,36.12090406,1246.5306396484375],[-81.83145366,36.12026487,1167.1263427734375],[-81.83111589,36.11956165,1185.8306884765625],[-81.83140659,36.11878382,1213.68798828125],[-81.83213526,36.11882677,1210.013427734375]]}}]};
+      L.geoJSON(r).addTo(map);
+      </script>
+    <div class = "data">
+      <h1>Route is
+        <span id="name"></span></h1>
+      <h1>Distance is
+        <span id="distance"></span></h1>
+      <h1>Can you hike?
+        <span id="hike"></span></h1>
+      <h1>Can you run?
+        <span id="run"></span></h1>
+      <h1>Rating is
+        <span id="rating"></span></h1>
+      <h1>Direction is <span id="direction"></span></h1>
+      <h1>Is it winter accessible?  <span id="winter"></span></h1>
+      <h1>Starting Point is <span id="start"></span></h1>
+      <h1>Difficulty is <span id="diff"></span></h1>
+      <h1>Is there water?  <span id="water"></span></h1>
+      <h1>Are there good views?  <span id="views"></span></h1>
+    </div>
+
+      <div class = "blurb">
+        <h3>
+          If you’ve ever seen or been to Grandfather Mountain, you know that there’s nowhere else in North Carolina or the Appalachian Mountains like it.  The mountain’s ridge is very distinctive, with sharp, protruding rock formation that contrast sharply with the surrounding smooth, rolling mountains.  It seems like the type of mountain that belongs in the Rockies, not the old, weathered, rounded peaks of the Appalachian Mountains.  However, for the most adventurous hikers, Grandfather Mountain is the ultimate mountaintop hiking adventure.  With opportunities for rock-hopping and bouldering, ladder climbs, and near-vertical climbs, hikers will not have a single moment of boredom on the Grandfather Mountain ridge.
+The route I took, and the route that is pictured on this page, is called the Profile trail, which starts from the side of highway 105 and connects with another trail that rides the top of Grandfather Mountain.  There are many ways to access this top trail, from the Blue Ridge Parkway, to a parking lot on top of Grandfather Mountain.  However, the Profile trail is the shortest way to access it without paying an entrance fee.  The road that winds to the top of the mountain provides access to the area for the Highland Games, the Swinging Bridge, Visitor’s Center, and even a small zoo, but costs a fee of around 20$ or more.  The Profile trail provides access to the same hikes but without needing to pay the entrance fee, at the cost of having to hike up the side of the mountain yourself instead of driving.
+This hike is highly technical, difficult, long, and exhausting.  It’s also my favorite trail in or around Boone.  The first half is entirely climbing, gradually at first, but at the top the route becomes a stair marathon.  There aren’t as many views on this part of the hike, as the trail isn’t very exposed.  When you’ve reached the Profile View, for which the route is named, you’ll know you’re about to start the fun part of the hike.
+The top of Grandfather Mountain is, to me, a playground.  It’s very exposed, with jagged peaks and steep cliffs, boulders, and hidden ledges.  I love finding side trails that branch off up to the tops of rocks with amazing views.  Because the ridge is so tall and narrow, you have amazing, sweeping views off of either side of the trail almost the whole time.  There are landmarks every so often, such as camping spots and caves.  Sometimes the trail winds through collapsed cliffsides, and you feel like you’re exploring the ruins of a stone castle or a fort.  One of the most recognizable features are the series of wooden ladders that crisscross the trail.  They are a huge filter for skill level: most people don’t trust themselves to hold tight to a ladder, on the side of a cliff, one slip away from death.  Some of the ladders lead to side landmarks, such as a huge boulder on the top of a peak, but most are required to continue the trail.  If you have a fear of heights, don’t trust yourself to support your weight, or don’t enjoy tight spaces, this is not the hike for you.
+When I recorded this hike, I turned it into a 10.3 mile out-and-back hike to the Swinging Bridge.  This is by no means a definitive version of this route, and I would suggest a much shorter version to most.  There are plenty of things to hike to on the top of the mountain, and all feel like an accomplishment.  Making it to the top of MacRae peak is especially rewarding, or taking the side trail to Indian House Cave is a fun exploration.  The Profile Trail is usually busy, and you will encounter more people the closer you get to the Swinging Bridge.  Don’t lose track of time, however, since the Profile trail’s parking lot closes around sunset and it would be bad to get locked in for the night.  Whenever you start to feel yourself tiring, it’s time to turn around and retrace your steps down the mountain.
+
+        </h3>
+      </div>
+  </body>
+</html>

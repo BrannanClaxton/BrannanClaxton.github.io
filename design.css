@@ -5,6 +5,7 @@ body {
 
 h1 {
   color: white;
+  padding:5px;
 }
 
 .app {
@@ -37,18 +38,21 @@ p {
 
 .data {
   font-family: Helvetica;
-  width:21%;
+  width:23%;
   font-size: 12px;
-  background-color: rgba(255, 255, 255, .05);
-  padding: 25px;
-  padding-top: 5px;
-  margin-top: 30px;
+  background:rgba(38, 38, 38, .5);
+  margin-left:15px;
+  margin-top:31px;
+  padding-left:5px;
+  border: 1px solid yellow;
+  height: 600px;
 }
 
 .blurb {
   font-family: Helvetica;
-  font-size: 12px;
-  padding: 50px;
+  font-size: 18px;
+  padding-left:20px;
+  padding-right:20px;
 }
 
 a:visited {
@@ -61,9 +65,27 @@ a:visited {
   margin-top:31px;
   border: 1px solid yellow;
   background:rgba(38, 38, 38, .5);
-  padding-left:5px;
+  padding:10px;
+  text-align:center;
 }
 
 th {
   border-bottom: 1px solid white;
+}
+
+#name, #distance, #hike, #run, #rating, #direction, #winter, #start, #diff, #water, #views {
+  color:green;
+}
+
+span {
+  display: block;
+  float:right;
+}
+
+.top {
+  margin-left:50px;
+}
+
+li {
+  font-size:18px;
 }
